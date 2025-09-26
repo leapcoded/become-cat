@@ -171,42 +171,6 @@
             <span class="testimonial-item">"The dog is now under my command." - C. Wilson</span>
         </div>
     </div>
-
-    <script>
-        const button = document.getElementById('catButton');
-        const messageDisplay = document.getElementById('messageDisplay');
-
-        const messages = [
-            "Your human is now preparing your favorite snack.",
-            "You have successfully located a sunbeam.",
-            "A mysterious red dot has appeared.",
-            "You've chosen to sit on a keyboard.",
-            "A cardboard box is now your cozy fortress.",
-            "You feel an uncontrollable urge to nap.",
-            "Your purr has reached maximum volume.",
-            "The dog is now under your command.",
-            "You have achieved peak floofiness.",
-            "Who needs a bed when there's a laundry basket?",
-            "You are now an expert at knocking things over.",
-            "The tiny bell on your collar has been silenced.",
-            "It's nap time. On everything.",
-            "The house belongs to you now."
-        ];
-
-        button.addEventListener('click', () => {
-            const randomIndex = Math.floor(Math.random() * messages.length);
-            messageDisplay.textContent = messages[randomIndex];
-
-            messageDisplay.classList.add('cat-bounce');
-            
-            const handleAnimationEnd = (event) => {
-                event.target.classList.remove('cat-bounce');
-                event.target.removeEventListener('animationend', handleAnimationEnd);
-            };
-
-            messageDisplay.addEventListener('animationend', handleAnimationEnd);
-        });
-    </script>
-
+    
 </body>
 </html>
