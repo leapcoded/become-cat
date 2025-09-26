@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become Cat!</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #291807; /* Dark brown text */
+            
+            /* Subtle, cute radial gradient background */
+            background: radial-gradient(circle at center, #f5d0fe 0%, #a78bfa 100%);
+            
+            /* Flexbox for centering content */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 1.5rem;
+            padding: 2rem 3rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            max-width: 32rem;
+            width: 100%;
+            transition: transform 0.5s;
+            transform: scale(1);
+        }
+        
+        .container:hover {
+            transform: scale(1.05);
+        }
+
+        .title {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 800;
+            color: #d97706; /* Burnt orange for titles */
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.07));
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+            color: #d97706;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+        
+        .cat-button {
+            background-color: #d97706;
+            color: white;
+            font-weight: bold;
+            width: 13rem;
+            height: 13rem;
+            border-radius: 9999px;
+            font-size: 1.5rem;
+            line-height: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            transform: scale(1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cat-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cat-button:active {
+            transform: scale(0.95);
+        }
+        
+        .message-display {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+            font-weight: bold;
+            color: #4a5568;
+            transition: all 0.3s;
+        }
+        
+        .cat-bounce {
+            animation: bounce 0.5s ease-in-out;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Testimonial ticker styles */
+        .ticker-wrap {
+            position: absolute;
+            bottom: 1rem;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+        .ticker {
+            display: inline-block;
+            animation: ticker-animation 30s linear infinite;
+        }
+
+        @keyframes ticker-animation {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        .testimonial-item {
+            display: inline-block;
+            padding: 0 1rem;
+            color: #7d4905;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="title">
+            Become Cat!
+        </h1>
+        <p class="subtitle">
+            Who can stop you?
+        </p>
+
+        <!-- The main button is now a perfect circle -->
+        <button id="catButton" class="cat-button">
+            <span>
+                Bap!
+            </span>
+        </button>
+
+        <!-- Display area for messages -->
+        <div>
+            <p id="messageDisplay" class="message-display"></p>
+        </div>
+    </div>
+    
+    <!-- Testimonial Ticker -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span class="testimonial-item">"I can now nap for 18 hours a day!" - A. Smith</span>
+            <span class="testimonial-item">"My boyfriend has started petting me and bringing me snacks." - L. Jones</span>
+            <span class="testimonial-item">"I feel an uncontrollable urge to knock things over. 10/10 would bap again." - M. Garcia</span>
+            <span class="testimonial-item">"No more responsibilities. Just sunbeams and snacks." - J. Rodriguez</span>
+            <span class="testimonial-item">"I have achieved peak floofiness." - E. Davis</span>
+            <span class="testimonial-item">"The dog is now under my command." - C. Wilson</span>
+            <!-- Duplicate content for seamless loop -->
+            <span class="testimonial-item">"I can now nap for 18 hours a day!" - A. Smith</span>
+            <span class="testimonial-item">"My humans have started petting me more." - L. Jones</span>
+            <span class="testimonial-item">"I feel an uncontrollable urge to knock things over. 10/10 would bap again." - M. Garcia</span>
+            <span class="testimonial-item">"No more responsibilities. Just sunbeams and snacks." - J. Rodriguez</span>
+            <span class="testimonial-item">"I have achieved peak floofiness." - E. Davis</span>
+            <span class="testimonial-item">"The dog is now under my command." - C. Wilson</span>
+        </div>
+    </div>
+
+    <script>
+        const button = document.getElementById('catButton');
+        const messageDisplay = document.getElementById('messageDisplay');
+
+        const messages = [
+            "Your human is now preparing your favorite snack.",
+            "You have successfully located a sunbeam.",
+            "A mysterious red dot has appeared.",
+            "You've chosen to sit on a keyboard.",
+            "A cardboard box is now your cozy fortress.",
+            "You feel an uncontrollable urge to nap.",
+            "Your purr has reached maximum volume.",
+            "The dog is now under your command.",
+            "You have achieved peak floofiness.",
+            "Who needs a bed when there's a laundry basket?",
+            "You are now an expert at knocking things over.",
+            "The tiny bell on your collar has been silenced.",
+            "It's nap time. On everything.",
+            "The house belongs to you now."
+        ];
+
+        button.addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            messageDisplay.textContent = messages[randomIndex];
+
+            messageDisplay.classList.add('cat-bounce');
+            
+            const handleAnimationEnd = (event) => {
+                event.target.classList.remove('cat-bounce');
+                event.target.removeEventListener('animationend', handleAnimationEnd);
+            };
+
+            messageDisplay.addEventListener('animationend', handleAnimationEnd);
+        });
+    </script>
+
+</body>
+</html>
