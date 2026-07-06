@@ -11,7 +11,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://littlepossum.xyz/become-cat">
     <meta name="theme-color" content="#0c0a09">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='55' r='28' fill='%23f59e0b'/><path d='M28 38 L38 18 L48 38 Z M52 38 L62 18 L72 38 Z' fill='%23f59e0b'/></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -216,20 +216,16 @@
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        .cat-avatar {
+        .stage-badge {
             position: relative;
-            font-size: 2.5rem;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
             line-height: 1;
             user-select: none;
             z-index: 1;
-        }
-
-        .cat-avatar.bounce { animation: avatar-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-
-        @keyframes avatar-pop {
-            0% { transform: scale(1); }
-            40% { transform: scale(1.25) rotate(-6deg); }
-            100% { transform: scale(1); }
+            color: var(--accent-soft);
+            font-variant-numeric: tabular-nums;
         }
 
         .level-label {
@@ -432,13 +428,6 @@
             border-radius: var(--radius-sm);
         }
 
-        .message-display.cat-bounce { animation: msg-in 0.35s ease; }
-
-        @keyframes msg-in {
-            from { opacity: 0.4; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .shop-header {
             display: flex;
             align-items: center;
@@ -517,8 +506,11 @@
             height: 2.5rem;
             border-radius: 8px;
             background: var(--surface-2);
-            font-size: 1.2rem;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
             line-height: 1;
+            color: var(--accent-soft);
         }
 
         .upgrade-name {
@@ -583,25 +575,10 @@
             font-style: italic;
         }
 
-        .paw {
-            position: fixed;
-            font-size: 1.25rem;
-            pointer-events: none;
-            z-index: 100;
-            animation: paw-float 0.85s ease-out forwards;
-            user-select: none;
-            filter: drop-shadow(0 0 6px var(--accent-glow));
-        }
-
-        @keyframes paw-float {
-            0% { opacity: 1; transform: translate(-50%, -50%) scale(0.6); }
-            100% { opacity: 0; transform: translate(-50%, -110%) scale(1.1); }
-        }
-
         @media (prefers-reduced-motion: reduce) {
             .ambient-orb, .bap-pulse, .avatar-ring::after, .ticker { animation: none; }
             .progress-fill, .cat-button, .upgrade { transition: none; }
-            .cat-avatar.bounce, .message-display.cat-bounce, .paw, .float-text { animation: none; }
+            .float-text { animation: none; }
         }
     </style>
 </head>
@@ -627,7 +604,7 @@
 
                 <div class="avatar-wrap">
                     <div class="avatar-ring" aria-hidden="true"></div>
-                    <span id="catAvatar" class="cat-avatar" aria-hidden="true">🐾</span>
+                    <span id="stageBadge" class="stage-badge" aria-hidden="true">01</span>
                 </div>
                 <p id="levelLabel" class="level-label"><span>Status ·</span> Mostly Human</p>
 
@@ -674,9 +651,9 @@
                 <p id="messageDisplay" class="message-display">Press Bap! to begin your long journey toward cat.</p>
             </main>
 
-            <aside class="panel" aria-label="Upgrades">
+            <aside class="panel" aria-label="Supplies">
                 <div class="shop-header">
-                    <h2 class="shop-title">Upgrades</h2>
+                    <h2 class="shop-title">Supplies</h2>
                     <span id="shopCount" class="shop-count">0 owned</span>
                 </div>
                 <div id="upgradeList" class="upgrade-list"></div>
@@ -686,23 +663,23 @@
 
     <div class="ticker-wrap" aria-hidden="true">
         <div class="ticker">
-            <span class="testimonial-item">"Day 3 and I have sprouted whiskers. Worth it." — A. Smith</span>
-            <span class="testimonial-item">"The cardboard box upgrade changed my life." — L. Jones</span>
+            <span class="testimonial-item">"Day 3 and I own four cardboard boxes. Life is good." — A. Smith</span>
+            <span class="testimonial-item">"The feather toy paid for itself in one afternoon." — L. Jones</span>
             <span class="testimonial-item">"10/10 would bap again. Still only 4% cat though." — M. Garcia</span>
-            <span class="testimonial-item">"My sunbeam lease finally paid off." — J. Rodriguez</span>
+            <span class="testimonial-item">"My window perch has excellent bird coverage." — J. Rodriguez</span>
             <span class="testimonial-item">"Peak floofiness is a marathon, not a sprint." — E. Davis</span>
-            <span class="testimonial-item">"The Meow Cult sends their regards." — C. Wilson</span>
-            <span class="testimonial-item">"Day 3 and I have sprouted whiskers. Worth it." — A. Smith</span>
-            <span class="testimonial-item">"The cardboard box upgrade changed my life." — L. Jones</span>
+            <span class="testimonial-item">"The automatic feeder understands me." — C. Wilson</span>
+            <span class="testimonial-item">"Day 3 and I own four cardboard boxes. Life is good." — A. Smith</span>
+            <span class="testimonial-item">"The feather toy paid for itself in one afternoon." — L. Jones</span>
             <span class="testimonial-item">"10/10 would bap again. Still only 4% cat though." — M. Garcia</span>
-            <span class="testimonial-item">"My sunbeam lease finally paid off." — J. Rodriguez</span>
+            <span class="testimonial-item">"My window perch has excellent bird coverage." — J. Rodriguez</span>
             <span class="testimonial-item">"Peak floofiness is a marathon, not a sprint." — E. Davis</span>
-            <span class="testimonial-item">"The Meow Cult sends their regards." — C. Wilson</span>
+            <span class="testimonial-item">"The automatic feeder understands me." — C. Wilson</span>
         </div>
     </div>
 
     <script>
-        const STORAGE_KEY = 'become-cat-save-v2';
+        const STORAGE_KEY = 'become-cat-save-v3';
         const TRANSFORM_GOAL = 100_000_000;
         const TRANSFORM_EXPONENT = 0.18;
         const COST_MULT = 1.15;
@@ -714,7 +691,7 @@
         const progressTrack = document.getElementById('progressTrack');
         const progressPercent = document.getElementById('progressPercent');
         const levelLabel = document.getElementById('levelLabel');
-        const catAvatar = document.getElementById('catAvatar');
+        const stageBadge = document.getElementById('stageBadge');
         const essenceDisplay = document.getElementById('essenceDisplay');
         const cpsDisplay = document.getElementById('cpsDisplay');
         const bapPowerDisplay = document.getElementById('bapPowerDisplay');
@@ -749,27 +726,44 @@
         ];
 
         const levels = [
-            { min: 0, label: 'Mostly Human', emoji: '🐾' },
-            { min: 1, label: 'Felt a Twitch', emoji: '🙂' },
-            { min: 4, label: 'Sprouting Whiskers', emoji: '😺' },
-            { min: 10, label: 'Part-Time Cat', emoji: '🐱' },
-            { min: 20, label: 'Tail Energy Detected', emoji: '😸' },
-            { min: 35, label: 'Certified Floof', emoji: '😼' },
-            { min: 55, label: 'Supreme Napper', emoji: '😻' },
-            { min: 75, label: 'Ancient Cat Spirit', emoji: '🦁' },
-            { min: 92, label: 'Peak Cat Achieved', emoji: '👑' },
-            { min: 100, label: 'Transcendent Loaf', emoji: '✨' }
+            { min: 0, label: 'Mostly Human' },
+            { min: 1, label: 'Felt a Twitch' },
+            { min: 4, label: 'Sprouting Whiskers' },
+            { min: 10, label: 'Part-Time Cat' },
+            { min: 20, label: 'Tail Energy Detected' },
+            { min: 35, label: 'Certified Floof' },
+            { min: 55, label: 'Supreme Napper' },
+            { min: 75, label: 'Ancient Cat Spirit' },
+            { min: 92, label: 'Peak Cat Achieved' },
+            { min: 100, label: 'Transcendent Loaf' }
         ];
 
         const upgrades = [
-            { id: 'claws', name: 'Velvet Paws', desc: 'More essence per bap', icon: '🐾', baseCost: 25, type: 'click', basePower: 1 },
-            { id: 'whisker', name: 'Whisker Twitch', desc: 'Passive staring income', icon: '👃', baseCost: 50, type: 'passive', baseCps: 0.2 },
-            { id: 'box', name: 'Cardboard Box', desc: 'Sacred dwelling', icon: '📦', baseCost: 250, type: 'passive', baseCps: 1.5 },
-            { id: 'sunbeam', name: 'Sunbeam Lease', desc: 'Premium lounging', icon: '☀️', baseCost: 2_000, type: 'passive', baseCps: 8 },
-            { id: 'catnip', name: 'Catnip Patch', desc: 'Increased zoomies', icon: '🌿', baseCost: 15_000, type: 'passive', baseCps: 40 },
-            { id: 'nap', name: 'Nap Shrine', desc: '18hr warmup', icon: '💤', baseCost: 120_000, type: 'passive', baseCps: 200 },
-            { id: 'cult', name: 'Meow Cult', desc: 'Wet food offerings', icon: '🏛️', baseCost: 900_000, type: 'passive', baseCps: 1_000 }
+            { id: 'kibble', name: 'Kibble', desc: 'Dry crunchies. The foundation of catdom.', abbr: 'KB', baseCost: 15, type: 'passive', baseCps: 0.15 },
+            { id: 'feather-toy', name: 'Feather Toy', desc: 'A swipe at a passing feather.', abbr: 'FT', baseCost: 30, type: 'click', basePower: 1 },
+            { id: 'cardboard-box', name: 'Cardboard Box', desc: 'If it fits, you sits.', abbr: 'BX', baseCost: 200, type: 'passive', baseCps: 1.2 },
+            { id: 'scratching-post', name: 'Scratching Post', desc: 'Sharpen the claws. Save the couch.', abbr: 'SP', baseCost: 750, type: 'passive', baseCps: 4 },
+            { id: 'crinkle-ball', name: 'Crinkle Ball', desc: 'It crinkles. You must attack.', abbr: 'CB', baseCost: 150, type: 'click', basePower: 1 },
+            { id: 'window-perch', name: 'Window Perch', desc: 'Premium bird-watching real estate.', abbr: 'WP', baseCost: 2_500, type: 'passive', baseCps: 10 },
+            { id: 'laser-pointer', name: 'Laser Pointer', desc: 'The red dot cannot be caught.', abbr: 'LP', baseCost: 3_500, type: 'click', basePower: 2 },
+            { id: 'cat-tree', name: 'Cat Tree', desc: 'Multiple levels. One supreme ruler.', abbr: 'CT', baseCost: 12_000, type: 'passive', baseCps: 45 },
+            { id: 'catnip-plant', name: 'Catnip Plant', desc: 'Local fauna reports concern.', abbr: 'CN', baseCost: 55_000, type: 'passive', baseCps: 180 },
+            { id: 'heated-bed', name: 'Heated Bed', desc: 'Toasty. Non-negotiable.', abbr: 'HB', baseCost: 220_000, type: 'passive', baseCps: 850 },
+            { id: 'wet-food', name: 'Wet Food', desc: 'The good stuff. Served at 5 AM.', abbr: 'WF', baseCost: 1_500_000, type: 'passive', baseCps: 4_000 },
+            { id: 'automatic-feeder', name: 'Automatic Feeder', desc: 'Food appears. You accept.', abbr: 'AF', baseCost: 8_000_000, type: 'passive', baseCps: 15_000 }
         ];
+
+        const LEGACY_OWNED_MAP = {
+            claws: 'feather-toy',
+            whisker: 'kibble',
+            box: 'cardboard-box',
+            sunbeam: 'window-perch',
+            catnip: 'catnip-plant',
+            nap: 'heated-bed',
+            cult: 'automatic-feeder'
+        };
+
+        const upgradeEls = new Map();
 
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -782,6 +776,7 @@
         };
 
         function formatNum(n) {
+            if (n < 10 && n % 1 !== 0) return n.toFixed(1);
             if (n < 1_000) return Math.floor(n).toLocaleString();
             if (n < 1_000_000) return `${(n / 1_000).toFixed(n < 10_000 ? 2 : 1)}K`;
             if (n < 1_000_000_000) return `${(n / 1_000_000).toFixed(n < 10_000_000 ? 2 : 1)}M`;
@@ -796,10 +791,14 @@
 
         function getLevel(pct) {
             let current = levels[0];
-            for (const level of levels) {
-                if (pct >= level.min) current = level;
+            let index = 0;
+            for (let i = 0; i < levels.length; i++) {
+                if (pct >= levels[i].min) {
+                    current = levels[i];
+                    index = i;
+                }
             }
-            return current;
+            return { ...current, index };
         }
 
         function getClickPower() {
@@ -851,31 +850,33 @@
             } catch (_) { /* ignore */ }
         }
 
+        function migrateOwned(savedOwned) {
+            const merged = Object.fromEntries(upgrades.map((u) => [u.id, 0]));
+            if (!savedOwned) return merged;
+
+            for (const [key, count] of Object.entries(savedOwned)) {
+                const id = LEGACY_OWNED_MAP[key] || key;
+                if (id in merged) merged[id] += count;
+            }
+            return merged;
+        }
+
         function load() {
             try {
-                const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('become-cat-save-v1');
+                const raw = localStorage.getItem(STORAGE_KEY)
+                    || localStorage.getItem('become-cat-save-v2')
+                    || localStorage.getItem('become-cat-save-v1');
                 if (!raw) return;
                 const data = JSON.parse(raw);
                 state.essence = data.essence ?? 0;
                 state.totalEssence = data.totalEssence ?? 0;
-                state.owned = { ...state.owned, ...data.owned };
+                state.owned = migrateOwned(data.owned);
                 if (data.lastTick) {
                     const elapsed = (Date.now() - data.lastTick) / 1000;
                     const offlineGain = getCps() * Math.min(elapsed, 3600);
                     if (offlineGain > 0) addEssence(offlineGain);
                 }
             } catch (_) { /* ignore */ }
-        }
-
-        function spawnPaw(x, y) {
-            if (prefersReducedMotion) return;
-            const paw = document.createElement('span');
-            paw.className = 'paw';
-            paw.textContent = '🐾';
-            paw.style.left = `${x}px`;
-            paw.style.top = `${y}px`;
-            document.body.appendChild(paw);
-            paw.addEventListener('animationend', () => paw.remove());
         }
 
         function spawnFloat(amount) {
@@ -887,40 +888,55 @@
             el.addEventListener('animationend', () => el.remove());
         }
 
-        function triggerBounce(el, className) {
-            el.classList.remove(className);
-            void el.offsetWidth;
-            el.classList.add(className);
-            el.addEventListener('animationend', () => el.classList.remove(className), { once: true });
-        }
-
-        function renderUpgrades() {
+        function initUpgrades() {
             upgradeList.innerHTML = '';
             for (const upgrade of upgrades) {
-                const owned = state.owned[upgrade.id];
-                const cost = getUpgradeCost(upgrade);
-                const canAfford = state.essence >= cost;
-                const effect = upgrade.type === 'click'
-                    ? `+${upgrade.basePower}/bap`
-                    : `+${upgrade.baseCps}/s`;
-
                 const btn = document.createElement('button');
                 btn.type = 'button';
-                btn.className = `upgrade${canAfford ? ' can-buy' : ''}`;
-                btn.disabled = !canAfford;
+                btn.className = 'upgrade';
+                btn.dataset.id = upgrade.id;
                 btn.innerHTML = `
-                    <span class="upgrade-icon">${upgrade.icon}</span>
+                    <span class="upgrade-icon" data-field="abbr"></span>
                     <span>
-                        <div class="upgrade-name">${upgrade.name}</div>
-                        <div class="upgrade-desc">${upgrade.desc} · ${effect}</div>
+                        <div class="upgrade-name" data-field="name"></div>
+                        <div class="upgrade-desc" data-field="desc"></div>
                     </span>
                     <span class="upgrade-meta">
-                        <div class="upgrade-cost">${formatNum(cost)}</div>
-                        <div class="upgrade-owned">×${owned}</div>
+                        <div class="upgrade-cost" data-field="cost"></div>
+                        <div class="upgrade-owned" data-field="owned"></div>
                     </span>
                 `;
                 btn.addEventListener('click', () => buyUpgrade(upgrade.id));
                 upgradeList.appendChild(btn);
+                upgradeEls.set(upgrade.id, btn);
+            }
+        }
+
+        function updateUpgrades() {
+            for (const upgrade of upgrades) {
+                const btn = upgradeEls.get(upgrade.id);
+                if (!btn) continue;
+
+                const owned = state.owned[upgrade.id];
+                const cost = getUpgradeCost(upgrade);
+                const canAfford = state.essence >= cost;
+                const totalEffect = upgrade.type === 'click'
+                    ? upgrade.basePower * owned
+                    : upgrade.baseCps * owned;
+                const perUnit = upgrade.type === 'click'
+                    ? `+${upgrade.basePower}/bap`
+                    : `+${upgrade.baseCps}/s`;
+                const effectLabel = owned > 0
+                    ? `${perUnit} · ${formatNum(totalEffect)} total`
+                    : perUnit;
+
+                btn.classList.toggle('can-buy', canAfford);
+                btn.disabled = !canAfford;
+                btn.querySelector('[data-field="abbr"]').textContent = upgrade.abbr;
+                btn.querySelector('[data-field="name"]').textContent = upgrade.name;
+                btn.querySelector('[data-field="desc"]').textContent = `${upgrade.desc} · ${effectLabel}`;
+                btn.querySelector('[data-field="cost"]').textContent = formatNum(cost);
+                btn.querySelector('[data-field="owned"]').textContent = `×${owned}`;
             }
         }
 
@@ -933,7 +949,7 @@
             progressTrack.toggleAttribute('data-active', pct > 0.5);
             progressPercent.textContent = `${pct.toFixed(2)}%`;
             levelLabel.innerHTML = `<span>Status ·</span> ${level.label}`;
-            catAvatar.textContent = level.emoji;
+            stageBadge.textContent = String(level.index + 1).padStart(2, '0');
             essenceDisplay.textContent = formatNum(state.essence);
             cpsDisplay.textContent = formatNum(getCps());
             bapPowerDisplay.textContent = formatNum(getClickPower());
@@ -944,7 +960,7 @@
                 m.classList.toggle('reached', pct >= Number(m.dataset.at));
             });
 
-            renderUpgrades();
+            updateUpgrades();
         }
 
         function buyUpgrade(id) {
@@ -955,7 +971,6 @@
             state.essence -= cost;
             state.owned[id] += 1;
             messageDisplay.textContent = `Acquired ${upgrade.name}. The transformation deepens.`;
-            triggerBounce(messageDisplay, 'cat-bounce');
             updateUI();
             save();
         }
@@ -964,14 +979,7 @@
             const gained = getClickPower();
             addEssence(gained);
             messageDisplay.textContent = pickMessage();
-            triggerBounce(messageDisplay, 'cat-bounce');
-            triggerBounce(catAvatar, 'bounce');
             spawnFloat(gained);
-
-            const x = event.clientX || window.innerWidth / 2;
-            const y = event.clientY || window.innerHeight / 2;
-            spawnPaw(x, y);
-
             updateUI();
             save();
         }
@@ -997,6 +1005,7 @@
         });
 
         load();
+        initUpgrades();
         state.lastTick = Date.now();
         updateUI();
 
