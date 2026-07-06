@@ -165,6 +165,24 @@
             text-transform: uppercase;
             color: var(--accent-soft);
             margin: 0 0 0.35rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+        }
+
+        .logo-mark {
+            width: 1.1rem;
+            height: 1.1rem;
+            color: var(--accent-soft);
+            flex-shrink: 0;
+        }
+
+        .bg-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23fbbf24' stroke-width='1'%3E%3Cpath d='M30 8c-2 4-6 5-6 10 0 3 2 5 6 5s6-2 6-5c0-5-4-6-6-10z'/%3E%3Ccircle cx='30' cy='38' r='10'/%3E%3C/g%3E%3C/svg%3E");
         }
 
         .title {
@@ -216,16 +234,23 @@
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        .stage-badge {
+        .stage-icon {
             position: relative;
-            font-size: 1.35rem;
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            line-height: 1;
-            user-select: none;
-            z-index: 1;
+            width: 2.75rem;
+            height: 2.75rem;
             color: var(--accent-soft);
-            font-variant-numeric: tabular-nums;
+            z-index: 1;
+        }
+
+        .svg-icon {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .upgrade-icon .svg-icon {
+            width: 1.35rem;
+            height: 1.35rem;
         }
 
         .level-label {
@@ -381,6 +406,17 @@
                 0 8px 32px rgba(245, 158, 11, 0.25),
                 0 2px 8px rgba(0, 0, 0, 0.3);
             transition: transform 0.15s, box-shadow 0.15s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+        }
+
+        .bap-icon {
+            width: 2rem;
+            height: 2rem;
+            color: rgba(28, 25, 23, 0.75);
         }
 
         .cat-button:hover {
@@ -506,10 +542,6 @@
             height: 2.5rem;
             border-radius: 8px;
             background: var(--surface-2);
-            font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 0.02em;
-            line-height: 1;
             color: var(--accent-soft);
         }
 
@@ -585,6 +617,7 @@
 <body>
 
     <div class="ambient" aria-hidden="true">
+        <div class="bg-pattern"></div>
         <div class="ambient-orb ambient-orb--1"></div>
         <div class="ambient-orb ambient-orb--2"></div>
         <div class="ambient-orb ambient-orb--3"></div>
@@ -598,13 +631,16 @@
 
         <div class="layout">
             <main class="panel panel--game">
-                <p class="eyebrow">Become Cat</p>
+                <p class="eyebrow">
+                    <svg class="logo-mark svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M12 3c-2 5-7 6-7 12a7 7 0 0014 0c0-6-5-7-7-12z"/><circle cx="9" cy="13" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1" fill="currentColor" stroke="none"/></svg>
+                    Become Cat
+                </p>
                 <h1 class="title">Who can stop you?</h1>
-                <p class="subtitle">A slow, inevitable transformation. One bap at a time.</p>
+                <p class="subtitle">A very slow, inevitable transformation. One bap at a time.</p>
 
                 <div class="avatar-wrap">
                     <div class="avatar-ring" aria-hidden="true"></div>
-                    <span id="stageBadge" class="stage-badge" aria-hidden="true">01</span>
+                    <div id="stageIcon" class="stage-icon" aria-hidden="true"></div>
                 </div>
                 <p id="levelLabel" class="level-label"><span>Status ·</span> Mostly Human</p>
 
@@ -644,6 +680,7 @@
                     <span class="bap-pulse" aria-hidden="true"></span>
                     <span class="bap-pulse" aria-hidden="true"></span>
                     <button id="catButton" class="cat-button" type="button" aria-describedby="messageDisplay">
+                        <svg class="bap-icon svg-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><ellipse cx="12" cy="14" rx="5" ry="4"/><circle cx="8" cy="9" r="2.2"/><circle cx="12" cy="7.5" r="2.2"/><circle cx="16" cy="9" r="2.2"/></svg>
                         <span id="buttonLabel">Bap!</span>
                     </button>
                 </div>
@@ -680,8 +717,8 @@
 
     <script>
         const STORAGE_KEY = 'become-cat-save-v3';
-        const TRANSFORM_GOAL = 100_000_000;
-        const TRANSFORM_EXPONENT = 0.18;
+        const TRANSFORM_GOAL = 1_000_000_000;
+        const TRANSFORM_EXPONENT = 0.12;
         const COST_MULT = 1.15;
 
         const button = document.getElementById('catButton');
@@ -691,7 +728,7 @@
         const progressTrack = document.getElementById('progressTrack');
         const progressPercent = document.getElementById('progressPercent');
         const levelLabel = document.getElementById('levelLabel');
-        const stageBadge = document.getElementById('stageBadge');
+        const stageIcon = document.getElementById('stageIcon');
         const essenceDisplay = document.getElementById('essenceDisplay');
         const cpsDisplay = document.getElementById('cpsDisplay');
         const bapPowerDisplay = document.getElementById('bapPowerDisplay');
@@ -699,6 +736,36 @@
         const shopCount = document.getElementById('shopCount');
         const bapZone = document.querySelector('.bap-zone');
         const milestones = document.querySelectorAll('.milestone');
+
+        const svg = (body) => `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
+
+        const STAGE_SVGS = [
+            '<circle cx="12" cy="12" r="8"/>',
+            '<circle cx="12" cy="12" r="8"/><path d="M7 7l2-3M17 7l-2-3"/>',
+            '<circle cx="12" cy="12" r="8"/><path d="M6 6l3-2M18 6l-3-2"/><circle cx="9" cy="12" r=".8" fill="currentColor"/><circle cx="15" cy="12" r=".8" fill="currentColor"/>',
+            '<path d="M6 8l2-4M18 8l-2-4"/><ellipse cx="12" cy="13" rx="7" ry="6"/><circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/>',
+            '<path d="M5 7l3-4M19 7l-3-4"/><ellipse cx="12" cy="13" rx="7.5" ry="6.5"/><circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/><path d="M5 13h2M17 13h2"/>',
+            '<path d="M4 6l4-3M20 6l-4-3"/><ellipse cx="12" cy="14" rx="8" ry="6"/><circle cx="9" cy="13" r="1" fill="currentColor"/><circle cx="15" cy="13" r="1" fill="currentColor"/><path d="M4 14h2M18 14h2"/><path d="M10 16h4"/>',
+            '<path d="M3 5l4-3M21 5l-4-3"/><ellipse cx="12" cy="14" rx="8.5" ry="6.5"/><circle cx="9" cy="13" r="1.1" fill="currentColor"/><circle cx="15" cy="13" r="1.1" fill="currentColor"/><path d="M3 14h2M19 14h2"/><path d="M9 17q3 2 6 0"/>',
+            '<path d="M3 4l4-3M21 4l-4-3"/><ellipse cx="12" cy="14" rx="9" ry="7"/><circle cx="8.5" cy="13" r="1.2" fill="currentColor"/><circle cx="15.5" cy="13" r="1.2" fill="currentColor"/><path d="M2 14h2.5M19.5 14H22"/><path d="M8 17q4 3 8 0"/><path d="M12 18v3"/>',
+            '<path d="M2 3l5-2M22 3l-5-2"/><ellipse cx="12" cy="14" rx="9.5" ry="7"/><circle cx="8" cy="13" r="1.3" fill="currentColor"/><circle cx="16" cy="13" r="1.3" fill="currentColor"/><path d="M1.5 14h3M19.5 14h3"/><path d="M7 17q5 4 10 0"/><path d="M12 18v3"/><path d="M8 21h8" stroke-width="1.2"/>',
+            '<path d="M2 2l5-1M22 2l-5-1"/><ellipse cx="12" cy="15" rx="10" ry="6"/><circle cx="8" cy="14" r="1.3" fill="currentColor"/><circle cx="16" cy="14" r="1.3" fill="currentColor"/><path d="M1 14h3M20 14h3"/><path d="M6 17q6 5 12 0"/><path d="M7 20h10" stroke-width="2"/><path d="M5 22h14" stroke-width="1.2" opacity=".6"/>'
+        ];
+
+        const SUPPLY_SVGS = {
+            kibble: '<path d="M4 15h16v3H4z"/><path d="M6 15V11a6 6 0 0112 0v4"/><circle cx="8" cy="17.5" r=".6" fill="currentColor"/><circle cx="12" cy="17.5" r=".6" fill="currentColor"/><circle cx="16" cy="17.5" r=".6" fill="currentColor"/>',
+            'feather-toy': '<path d="M12 20V8"/><path d="M12 8C8 8 5 11 5 14s2 4 7 4"/><path d="M12 10c3 0 5 2 5 4s-1 3-5 3"/>',
+            'cardboard-box': '<path d="M3 9l9-4 9 4v10l-9 4-9-4z"/><path d="M3 9l9 4 9-4M12 13v10"/>',
+            'scratching-post': '<path d="M8 20V6l4-2 4 2v14"/><path d="M6 20h12"/><path d="M9 8h1M11 11h1M9 14h1M13 8h1M15 11h1"/>',
+            'crinkle-ball': '<circle cx="12" cy="12" r="7"/><path d="M8 9l2 2-2 2M14 9l-2 2 2 2M9 14h6"/>',
+            'window-perch': '<path d="M4 5h16v12H4z"/><path d="M4 12h16"/><path d="M7 17h10v3H7z"/><circle cx="17" cy="8" r="1.5"/>',
+            'laser-pointer': '<circle cx="7" cy="16" r="2" fill="#ef4444" stroke="none"/><path d="M9 15l10-8"/><path d="M17 5l3-1-1 3"/>',
+            'cat-tree': '<path d="M12 3v18"/><path d="M6 9h12"/><path d="M5 14h14"/><path d="M7 19h10"/><path d="M4 9l2-2M20 9l-2-2"/>',
+            'catnip-plant': '<path d="M12 20V10"/><path d="M12 10C8 10 6 8 6 6s2-3 6-1"/><path d="M12 10c4 0 6-2 6-4s-2-3-6-1"/><path d="M12 14c-3 0-5-2-5-4"/>',
+            'heated-bed': '<path d="M5 14h14a3 3 0 010 6H5a3 3 0 010-6z"/><path d="M8 11c0-2 1.5-4 4-4s4 2 4 4"/><path d="M3 10c1-1 2-1 3 0M21 10c-1-1-2-1-3 0"/>',
+            'wet-food': '<path d="M9 4h6v3H9z"/><path d="M8 7h8a2 2 0 012 2v9a3 3 0 01-3 3H9a3 3 0 01-3-3V9a2 2 0 012-2z"/><path d="M9 12h6"/>',
+            'automatic-feeder': '<path d="M6 4h12v6a6 6 0 01-12 0z"/><path d="M12 16v4"/><path d="M8 20h8"/><circle cx="12" cy="7" r="1.5" fill="currentColor"/><path d="M4 14h3M17 14h3"/>'
+        };
 
         const messages = [
             'Your human is now preparing your favorite snack.',
@@ -739,18 +806,18 @@
         ];
 
         const upgrades = [
-            { id: 'kibble', name: 'Kibble', desc: 'Dry crunchies. The foundation of catdom.', abbr: 'KB', baseCost: 15, type: 'passive', baseCps: 0.15 },
-            { id: 'feather-toy', name: 'Feather Toy', desc: 'A swipe at a passing feather.', abbr: 'FT', baseCost: 30, type: 'click', basePower: 1 },
-            { id: 'cardboard-box', name: 'Cardboard Box', desc: 'If it fits, you sits.', abbr: 'BX', baseCost: 200, type: 'passive', baseCps: 1.2 },
-            { id: 'scratching-post', name: 'Scratching Post', desc: 'Sharpen the claws. Save the couch.', abbr: 'SP', baseCost: 750, type: 'passive', baseCps: 4 },
-            { id: 'crinkle-ball', name: 'Crinkle Ball', desc: 'It crinkles. You must attack.', abbr: 'CB', baseCost: 150, type: 'click', basePower: 1 },
-            { id: 'window-perch', name: 'Window Perch', desc: 'Premium bird-watching real estate.', abbr: 'WP', baseCost: 2_500, type: 'passive', baseCps: 10 },
-            { id: 'laser-pointer', name: 'Laser Pointer', desc: 'The red dot cannot be caught.', abbr: 'LP', baseCost: 3_500, type: 'click', basePower: 2 },
-            { id: 'cat-tree', name: 'Cat Tree', desc: 'Multiple levels. One supreme ruler.', abbr: 'CT', baseCost: 12_000, type: 'passive', baseCps: 45 },
-            { id: 'catnip-plant', name: 'Catnip Plant', desc: 'Local fauna reports concern.', abbr: 'CN', baseCost: 55_000, type: 'passive', baseCps: 180 },
-            { id: 'heated-bed', name: 'Heated Bed', desc: 'Toasty. Non-negotiable.', abbr: 'HB', baseCost: 220_000, type: 'passive', baseCps: 850 },
-            { id: 'wet-food', name: 'Wet Food', desc: 'The good stuff. Served at 5 AM.', abbr: 'WF', baseCost: 1_500_000, type: 'passive', baseCps: 4_000 },
-            { id: 'automatic-feeder', name: 'Automatic Feeder', desc: 'Food appears. You accept.', abbr: 'AF', baseCost: 8_000_000, type: 'passive', baseCps: 15_000 }
+            { id: 'kibble', name: 'Kibble', desc: 'Dry crunchies. The foundation of catdom.', baseCost: 15, type: 'passive', baseCps: 0.15 },
+            { id: 'feather-toy', name: 'Feather Toy', desc: 'A swipe at a passing feather.', baseCost: 30, type: 'click', basePower: 1 },
+            { id: 'cardboard-box', name: 'Cardboard Box', desc: 'If it fits, you sits.', baseCost: 200, type: 'passive', baseCps: 1.2 },
+            { id: 'scratching-post', name: 'Scratching Post', desc: 'Sharpen the claws. Save the couch.', baseCost: 750, type: 'passive', baseCps: 4 },
+            { id: 'crinkle-ball', name: 'Crinkle Ball', desc: 'It crinkles. You must attack.', baseCost: 150, type: 'click', basePower: 1 },
+            { id: 'window-perch', name: 'Window Perch', desc: 'Premium bird-watching real estate.', baseCost: 2_500, type: 'passive', baseCps: 10 },
+            { id: 'laser-pointer', name: 'Laser Pointer', desc: 'The red dot cannot be caught.', baseCost: 3_500, type: 'click', basePower: 2 },
+            { id: 'cat-tree', name: 'Cat Tree', desc: 'Multiple levels. One supreme ruler.', baseCost: 12_000, type: 'passive', baseCps: 45 },
+            { id: 'catnip-plant', name: 'Catnip Plant', desc: 'Local fauna reports concern.', baseCost: 55_000, type: 'passive', baseCps: 180 },
+            { id: 'heated-bed', name: 'Heated Bed', desc: 'Toasty. Non-negotiable.', baseCost: 220_000, type: 'passive', baseCps: 850 },
+            { id: 'wet-food', name: 'Wet Food', desc: 'The good stuff. Served at 5 AM.', baseCost: 1_500_000, type: 'passive', baseCps: 4_000 },
+            { id: 'automatic-feeder', name: 'Automatic Feeder', desc: 'Food appears. You accept.', baseCost: 8_000_000, type: 'passive', baseCps: 15_000 }
         ];
 
         const LEGACY_OWNED_MAP = {
@@ -896,7 +963,7 @@
                 btn.className = 'upgrade';
                 btn.dataset.id = upgrade.id;
                 btn.innerHTML = `
-                    <span class="upgrade-icon" data-field="abbr"></span>
+                    <span class="upgrade-icon" data-field="icon"></span>
                     <span>
                         <div class="upgrade-name" data-field="name"></div>
                         <div class="upgrade-desc" data-field="desc"></div>
@@ -932,7 +999,7 @@
 
                 btn.classList.toggle('can-buy', canAfford);
                 btn.disabled = !canAfford;
-                btn.querySelector('[data-field="abbr"]').textContent = upgrade.abbr;
+                btn.querySelector('[data-field="icon"]').innerHTML = svg(SUPPLY_SVGS[upgrade.id]);
                 btn.querySelector('[data-field="name"]').textContent = upgrade.name;
                 btn.querySelector('[data-field="desc"]').textContent = `${upgrade.desc} · ${effectLabel}`;
                 btn.querySelector('[data-field="cost"]').textContent = formatNum(cost);
@@ -949,7 +1016,7 @@
             progressTrack.toggleAttribute('data-active', pct > 0.5);
             progressPercent.textContent = `${pct.toFixed(2)}%`;
             levelLabel.innerHTML = `<span>Status ·</span> ${level.label}`;
-            stageBadge.textContent = String(level.index + 1).padStart(2, '0');
+            stageIcon.innerHTML = svg(STAGE_SVGS[level.index]);
             essenceDisplay.textContent = formatNum(state.essence);
             cpsDisplay.textContent = formatNum(getCps());
             bapPowerDisplay.textContent = formatNum(getClickPower());
@@ -970,7 +1037,7 @@
 
             state.essence -= cost;
             state.owned[id] += 1;
-            messageDisplay.textContent = `Acquired ${upgrade.name}. The transformation deepens.`;
+            messageDisplay.textContent = `Got ${upgrade.name}. The transformation deepens.`;
             updateUI();
             save();
         }
