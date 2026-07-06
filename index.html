@@ -44,7 +44,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .shell { max-width: 960px; margin: 0 auto; }
+        .shell { max-width: 920px; margin: 0 auto; }
 
         .topbar {
             display: flex;
@@ -68,6 +68,12 @@
             gap: 0.75rem;
         }
 
+        @media (min-width: 800px) {
+            .layout {
+                grid-template-columns: 1fr 320px;
+                align-items: start;
+            }
+        }
 
         .panel {
             background: var(--surface);
@@ -106,24 +112,16 @@
         }
 
         .level-label {
-            font-size: 0.82rem;
+            font-size: 0.84rem;
             font-weight: 500;
             color: var(--text-muted);
-            margin: 0 0 0.35rem;
+            margin: 0 0 1.25rem;
         }
 
         .level-label strong {
             color: var(--text);
             font-weight: 600;
             font-variant-numeric: tabular-nums;
-        }
-
-        .stage-vibe {
-            font-size: 0.82rem;
-            color: var(--text-dim);
-            line-height: 1.45;
-            margin: 0 auto 1rem;
-            max-width: 30rem;
         }
 
         .progress-block { margin-bottom: 1.25rem; text-align: left; }
@@ -164,33 +162,11 @@
         }
 
         .progress-milestones {
-            display: grid;
-            grid-template-columns: repeat(11, 1fr);
-            gap: 0.15rem;
-            margin-top: 0.45rem;
-            font-size: 0.52rem;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.4rem;
+            font-size: 0.62rem;
             color: var(--text-dim);
-            text-align: center;
-        }
-
-        .milestone {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        @media (max-width: 639px) {
-            .progress-milestones { font-size: 0; }
-            .milestone::before {
-                content: '';
-                display: block;
-                width: 4px;
-                height: 4px;
-                margin: 0 auto;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.15);
-            }
-            .milestone.reached::before { background: var(--accent); }
         }
 
         .milestone.reached { color: var(--accent); }
@@ -314,25 +290,21 @@
         }
 
         .upgrade-list {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.3rem;
-        }
-
-        @media (min-width: 640px) {
-            .upgrade-list { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (min-width: 900px) {
-            .upgrade-list { grid-template-columns: repeat(3, 1fr); }
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            max-height: min(72vh, 580px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.12) transparent;
         }
 
         .upgrade {
             display: grid;
-            grid-template-columns: 2rem 1fr;
-            gap: 0.55rem;
+            grid-template-columns: 2.25rem 1fr;
+            gap: 0.65rem;
             width: 100%;
-            padding: 0.5rem 0.6rem;
+            padding: 0.65rem 0.7rem;
             border: 1px solid transparent;
             border-radius: var(--radius-sm);
             background: transparent;
@@ -372,9 +344,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 2rem;
-            height: 2rem;
-            border-radius: 6px;
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: 7px;
             background: var(--bg-elevated);
             border: 1px solid var(--border);
             color: var(--accent);
@@ -396,31 +368,27 @@
 
         .upgrade-name {
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.84rem;
             color: var(--text);
         }
 
         .upgrade-cost {
             font-weight: 600;
-            font-size: 0.76rem;
+            font-size: 0.8rem;
             color: var(--accent);
             font-variant-numeric: tabular-nums;
             white-space: nowrap;
         }
 
         .upgrade-desc {
-            font-size: 0.7rem;
+            font-size: 0.74rem;
             color: var(--text-dim);
-            line-height: 1.3;
-            margin-bottom: 0.1rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            line-height: 1.35;
+            margin-bottom: 0.15rem;
         }
 
         .upgrade-effect {
-            font-size: 0.66rem;
+            font-size: 0.68rem;
             color: var(--text-muted);
             font-variant-numeric: tabular-nums;
         }
@@ -444,8 +412,7 @@
                 <h1 class="title">Who can stop you?</h1>
                 <p class="subtitle">A very slow transformation. One bap at a time.</p>
 
-                <p id="levelLabel" class="level-label">Stage <strong>1</strong> · Just Human</p>
-                <p id="stageVibe" class="stage-vibe">Dealing with daily life; completely un-feline.</p>
+                <p id="levelLabel" class="level-label">Stage <strong>01</strong> · Mostly Human</p>
 
                 <div class="progress-block">
                     <div class="progress-header">
@@ -505,7 +472,6 @@
         const progressTrack = document.getElementById('progressTrack');
         const progressPercent = document.getElementById('progressPercent');
         const levelLabel = document.getElementById('levelLabel');
-        const stageVibe = document.getElementById('stageVibe');
         const essenceDisplay = document.getElementById('essenceDisplay');
         const cpsDisplay = document.getElementById('cpsDisplay');
         const bapPowerDisplay = document.getElementById('bapPowerDisplay');
@@ -801,17 +767,16 @@
         function updateUI() {
             const pct = getTransformPercent();
             const level = getLevel(pct);
-            const stage = String(level.index + 1);
+            const stage = String(level.index + 1).padStart(2, '0');
 
             progressBar.style.width = `${pct}%`;
             progressTrack.setAttribute('aria-valuenow', pct.toFixed(2));
             progressPercent.textContent = `${pct.toFixed(2)}%`;
             levelLabel.innerHTML = `Stage <strong>${stage}</strong> · ${level.label}`;
-            stageVibe.textContent = level.vibe;
             essenceDisplay.textContent = formatNum(state.essence);
             cpsDisplay.textContent = formatNum(getCps());
             bapPowerDisplay.textContent = formatNum(getClickPower());
-            buttonLabel.textContent = pct >= 100 ? 'Total Cat' : 'Bap';
+            buttonLabel.textContent = pct >= 100 ? 'Fully cat' : 'Bap';
             shopCount.textContent = `${getTotalOwned()} owned`;
 
             getMilestones().forEach((m) => {
