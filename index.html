@@ -3,40 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Become Cat! · littlepossum.xyz</title>
-    <meta name="description" content="A slow, inevitable transformation into cat. Bap. Upgrade. Loaf. Repeat.">
+    <title>Become Cat · littlepossum.xyz</title>
+    <meta name="description" content="A slow transformation into cat. One bap at a time.">
     <meta name="author" content="littlepossum.xyz">
-    <meta property="og:title" content="Become Cat!">
-    <meta property="og:description" content="A slow, inevitable transformation into cat. Bap. Upgrade. Loaf. Repeat.">
+    <meta property="og:title" content="Become Cat">
+    <meta property="og:description" content="A slow transformation into cat. One bap at a time.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://littlepossum.xyz/become-cat">
-    <meta name="theme-color" content="#0c0a09">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='55' r='28' fill='%23f59e0b'/><path d='M28 38 L38 18 L48 38 Z M52 38 L62 18 L72 38 Z' fill='%23f59e0b'/></svg>">
+    <meta name="theme-color" content="#111110">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23111110'/><path d='M30 38 L38 22 L46 38 M54 38 L62 22 L70 38' fill='none' stroke='%23d4a054' stroke-width='5' stroke-linecap='round'/><ellipse cx='50' cy='58' rx='22' ry='18' fill='none' stroke='%23d4a054' stroke-width='5'/></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0c0a09;
-            --surface: rgba(28, 25, 23, 0.72);
-            --surface-2: rgba(41, 37, 36, 0.55);
-            --border: rgba(255, 255, 255, 0.07);
-            --border-strong: rgba(255, 255, 255, 0.12);
-            --text: #fafaf9;
+            --bg: #111110;
+            --bg-elevated: #1a1918;
+            --surface: #1f1e1d;
+            --surface-hover: #262524;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f5f5f4;
             --text-muted: #a8a29e;
             --text-dim: #78716c;
-            --accent: #f59e0b;
-            --accent-soft: #fbbf24;
-            --accent-glow: rgba(245, 158, 11, 0.35);
-            --accent-dim: rgba(245, 158, 11, 0.12);
-            --success: #34d399;
-            --radius: 16px;
+            --accent: #d4a054;
+            --accent-dim: rgba(212, 160, 84, 0.14);
+            --radius: 14px;
             --radius-sm: 10px;
         }
 
         *, *::before, *::after { box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -44,293 +39,137 @@
             background: var(--bg);
             min-height: 100vh;
             margin: 0;
-            padding: 1.25rem 1.25rem 3.5rem;
+            padding: 1.5rem 1.25rem 2rem;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
         }
 
-        .ambient {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .ambient-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.45;
-            animation: drift 18s ease-in-out infinite alternate;
-        }
-
-        .ambient-orb--1 {
-            width: 55vw;
-            height: 55vw;
-            top: -15%;
-            left: -10%;
-            background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
-        }
-
-        .ambient-orb--2 {
-            width: 45vw;
-            height: 45vw;
-            bottom: -10%;
-            right: -5%;
-            background: radial-gradient(circle, #d97706 0%, transparent 70%);
-            animation-delay: -6s;
-        }
-
-        .ambient-orb--3 {
-            width: 30vw;
-            height: 30vw;
-            top: 40%;
-            left: 35%;
-            background: radial-gradient(circle, #be185d 0%, transparent 70%);
-            opacity: 0.2;
-            animation-delay: -12s;
-        }
-
-        @keyframes drift {
-            from { transform: translate(0, 0) scale(1); }
-            to { transform: translate(3%, 4%) scale(1.08); }
-        }
-
-        .shell {
-            max-width: 960px;
-            margin: 0 auto;
-        }
+        .shell { max-width: 920px; margin: 0 auto; }
 
         .topbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1.5rem;
-            gap: 1rem;
+            margin-bottom: 1.75rem;
         }
 
         .site-link {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-dim);
             text-decoration: none;
-            transition: color 0.2s;
+            transition: color 0.15s;
         }
 
-        .site-link:hover, .site-link:focus-visible { color: var(--accent-soft); }
-
-        .badge {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--accent-soft);
-            background: var(--accent-dim);
-            border: 1px solid rgba(245, 158, 11, 0.2);
-            padding: 0.3rem 0.65rem;
-            border-radius: 999px;
-        }
+        .site-link:hover, .site-link:focus-visible { color: var(--text-muted); }
 
         .layout {
             display: grid;
-            gap: 1rem;
+            gap: 0.75rem;
         }
 
         @media (min-width: 800px) {
             .layout {
-                grid-template-columns: 1fr 340px;
+                grid-template-columns: 1fr 320px;
                 align-items: start;
             }
         }
 
         .panel {
             background: var(--surface);
-            backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 1.5rem;
         }
 
-        .panel--game {
-            text-align: center;
-        }
+        .panel--game { text-align: center; }
 
         .eyebrow {
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            letter-spacing: 0.14em;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
-            color: var(--accent-soft);
-            margin: 0 0 0.35rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.35rem;
-        }
-
-        .logo-mark {
-            width: 1.1rem;
-            height: 1.1rem;
-            color: var(--accent-soft);
-            flex-shrink: 0;
-        }
-
-        .bg-pattern {
-            position: absolute;
-            inset: 0;
-            opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23fbbf24' stroke-width='1'%3E%3Cpath d='M30 8c-2 4-6 5-6 10 0 3 2 5 6 5s6-2 6-5c0-5-4-6-6-10z'/%3E%3Ccircle cx='30' cy='38' r='10'/%3E%3C/g%3E%3C/svg%3E");
+            color: var(--text-dim);
+            margin: 0 0 0.5rem;
         }
 
         .title {
-            font-size: clamp(2rem, 6vw, 2.75rem);
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            margin: 0 0 0.35rem;
-            background: linear-gradient(135deg, #fff 30%, var(--accent-soft));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-size: clamp(1.75rem, 5vw, 2.25rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin: 0 0 0.4rem;
+            color: var(--text);
         }
 
         .subtitle {
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             color: var(--text-muted);
             margin: 0 0 1.5rem;
-            font-weight: 500;
-        }
-
-        .avatar-wrap {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 5.5rem;
-            height: 5.5rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .avatar-ring {
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            border: 1px solid var(--border-strong);
-            background: var(--surface-2);
-        }
-
-        .avatar-ring::after {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 50%;
-            border: 1px solid transparent;
-            border-top-color: var(--accent);
-            opacity: 0.5;
-            animation: spin 8s linear infinite;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .stage-icon {
-            position: relative;
-            width: 2.75rem;
-            height: 2.75rem;
-            color: var(--accent-soft);
-            z-index: 1;
-        }
-
-        .svg-icon {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-
-        .upgrade-icon .svg-icon {
-            width: 1.35rem;
-            height: 1.35rem;
+            font-weight: 400;
+            max-width: 28rem;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .level-label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text);
+            font-size: 0.84rem;
+            font-weight: 500;
+            color: var(--text-muted);
             margin: 0 0 1.25rem;
         }
 
-        .level-label span { color: var(--text-muted); font-weight: 500; }
+        .level-label strong {
+            color: var(--text);
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
 
-        .progress-block { margin-bottom: 1.25rem; }
+        .progress-block { margin-bottom: 1.25rem; text-align: left; }
 
         .progress-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 0.5rem;
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
+            margin-bottom: 0.45rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
             color: var(--text-dim);
         }
 
         #progressPercent {
-            color: var(--accent-soft);
+            color: var(--accent);
             font-variant-numeric: tabular-nums;
+            letter-spacing: 0;
+            text-transform: none;
+            font-size: 0.78rem;
         }
 
         .progress-track {
-            position: relative;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.06);
+            height: 2px;
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 999px;
-            overflow: visible;
+            overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
             width: 0%;
+            background: var(--accent);
             border-radius: 999px;
-            background: linear-gradient(90deg, #d97706, var(--accent-soft));
-            box-shadow: 0 0 12px var(--accent-glow);
-            transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-            position: relative;
+            transition: width 0.5s ease;
         }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 50%;
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #fff;
-            box-shadow: 0 0 8px var(--accent-soft);
-            transform: translate(50%, -50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .progress-track[data-active] .progress-fill::after { opacity: 1; }
 
         .progress-milestones {
             display: flex;
             justify-content: space-between;
-            margin-top: 0.45rem;
-            padding: 0 1px;
-        }
-
-        .milestone {
+            margin-top: 0.4rem;
             font-size: 0.62rem;
             color: var(--text-dim);
-            font-weight: 500;
-            transition: color 0.3s;
         }
 
-        .milestone.reached { color: var(--accent-soft); }
+        .milestone.reached { color: var(--accent); }
 
         .stats {
             display: grid;
@@ -340,29 +179,28 @@
         }
 
         .stat {
-            background: var(--surface-2);
+            background: var(--bg-elevated);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
-            padding: 0.65rem 0.5rem;
+            padding: 0.7rem 0.5rem;
         }
 
         .stat-value {
             display: block;
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 1.05rem;
+            font-weight: 600;
             color: var(--text);
             font-variant-numeric: tabular-nums;
-            letter-spacing: -0.02em;
         }
 
         .stat-label {
             display: block;
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
+            font-size: 0.62rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
             color: var(--text-dim);
-            margin-top: 0.1rem;
+            margin-top: 0.15rem;
         }
 
         .bap-zone {
@@ -371,186 +209,123 @@
             margin-bottom: 1.25rem;
         }
 
-        .bap-pulse {
-            position: absolute;
-            inset: -8px;
-            border-radius: 50%;
-            border: 1px solid rgba(245, 158, 11, 0.15);
-            animation: pulse-ring 2.5s ease-out infinite;
-            pointer-events: none;
-        }
-
-        .bap-pulse:nth-child(2) { animation-delay: 1.25s; }
-
-        @keyframes pulse-ring {
-            0% { transform: scale(0.95); opacity: 0.6; }
-            100% { transform: scale(1.15); opacity: 0; }
-        }
-
         .cat-button {
-            position: relative;
-            width: min(9.5rem, 42vw);
-            height: min(9.5rem, 42vw);
-            border-radius: 50%;
-            border: none;
+            min-width: 7.5rem;
+            padding: 0.9rem 2rem;
+            border-radius: 999px;
+            border: 1px solid rgba(212, 160, 84, 0.35);
+            background: var(--accent-dim);
+            color: var(--accent);
             cursor: pointer;
             touch-action: manipulation;
             font-family: inherit;
-            font-size: 1.15rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            color: #1c1917;
-            background: linear-gradient(145deg, #fbbf24 0%, #d97706 100%);
-            box-shadow:
-                0 0 0 1px rgba(255, 255, 255, 0.15) inset,
-                0 8px 32px rgba(245, 158, 11, 0.25),
-                0 2px 8px rgba(0, 0, 0, 0.3);
-            transition: transform 0.15s, box-shadow 0.15s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.35rem;
-        }
-
-        .bap-icon {
-            width: 2rem;
-            height: 2rem;
-            color: rgba(28, 25, 23, 0.75);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            transition: background 0.15s, border-color 0.15s, transform 0.1s;
         }
 
         .cat-button:hover {
-            transform: scale(1.04);
-            box-shadow:
-                0 0 0 1px rgba(255, 255, 255, 0.2) inset,
-                0 12px 40px rgba(245, 158, 11, 0.35),
-                0 2px 8px rgba(0, 0, 0, 0.3);
+            background: rgba(212, 160, 84, 0.22);
+            border-color: rgba(212, 160, 84, 0.55);
         }
 
-        .cat-button:active { transform: scale(0.96); }
+        .cat-button:active { transform: scale(0.98); }
 
         .cat-button:focus-visible {
-            outline: 2px solid var(--accent-soft);
-            outline-offset: 4px;
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
         }
 
         .float-text {
             position: absolute;
             left: 50%;
-            top: 45%;
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: var(--accent-soft);
+            top: 0;
+            font-weight: 600;
+            font-size: 0.82rem;
+            color: var(--accent);
             pointer-events: none;
-            animation: float-up 0.75s ease-out forwards;
-            text-shadow: 0 0 12px var(--accent-glow);
+            animation: float-up 0.7s ease-out forwards;
+            font-variant-numeric: tabular-nums;
         }
 
         @keyframes float-up {
             0% { opacity: 1; transform: translate(-50%, 0); }
-            100% { opacity: 0; transform: translate(-50%, -50px); }
+            100% { opacity: 0; transform: translate(-50%, -36px); }
         }
 
         .message-display {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             line-height: 1.55;
-            font-weight: 500;
             color: var(--text-muted);
-            min-height: 2.8rem;
+            min-height: 2.6rem;
             margin: 0;
-            padding: 0.75rem 1rem;
-            background: var(--surface-2);
+            padding: 0.85rem 1rem;
+            background: var(--bg-elevated);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
+            text-align: left;
         }
 
         .shop-header {
             display: flex;
-            align-items: center;
+            align-items: baseline;
             justify-content: space-between;
-            margin-bottom: 1rem;
+            margin-bottom: 0.85rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
         }
 
         .shop-title {
-            font-size: 0.95rem;
-            font-weight: 700;
+            font-size: 0.88rem;
+            font-weight: 600;
             margin: 0;
-            letter-spacing: -0.01em;
+            letter-spacing: 0.02em;
         }
 
         .shop-count {
             font-size: 0.72rem;
-            font-weight: 600;
             color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
         }
 
         .upgrade-list {
             display: flex;
             flex-direction: column;
-            gap: 0.45rem;
-            max-height: min(70vh, 560px);
+            gap: 0.35rem;
+            max-height: min(72vh, 580px);
             overflow-y: auto;
-            padding-right: 2px;
             scrollbar-width: thin;
-            scrollbar-color: rgba(255,255,255,0.15) transparent;
+            scrollbar-color: rgba(255,255,255,0.12) transparent;
         }
 
         .upgrade {
             display: grid;
-            grid-template-columns: 2.5rem 1fr auto;
+            grid-template-columns: 2.25rem 1fr;
             gap: 0.65rem;
-            align-items: center;
             width: 100%;
-            padding: 0.7rem 0.75rem;
-            border: 1px solid var(--border);
+            padding: 0.65rem 0.7rem;
+            border: 1px solid transparent;
             border-radius: var(--radius-sm);
-            background: rgba(255, 255, 255, 0.02);
+            background: transparent;
             cursor: pointer;
             text-align: left;
             font: inherit;
             color: inherit;
-            transition: border-color 0.2s, background 0.2s, transform 0.1s;
+            transition: background 0.15s, border-color 0.15s;
         }
+
+        .upgrade:hover:not(:disabled) { background: var(--surface-hover); }
 
         .upgrade.can-buy {
-            border-color: rgba(245, 158, 11, 0.35);
-            background: rgba(245, 158, 11, 0.06);
+            border-color: rgba(212, 160, 84, 0.2);
+            background: rgba(212, 160, 84, 0.05);
         }
 
-        .upgrade.can-buy:hover {
-            border-color: rgba(245, 158, 11, 0.55);
-            background: rgba(245, 158, 11, 0.1);
-        }
-
-        .upgrade.perk {
-            border-color: rgba(167, 139, 250, 0.25);
-            background: rgba(167, 139, 250, 0.04);
-        }
-
-        .upgrade.perk.can-buy {
-            border-color: rgba(167, 139, 250, 0.5);
-            background: rgba(167, 139, 250, 0.1);
-        }
-
-        .upgrade.perk.can-buy:hover {
-            border-color: rgba(167, 139, 250, 0.7);
-            background: rgba(167, 139, 250, 0.14);
-        }
-
-        .upgrade.perk .upgrade-icon { color: #c4b5fd; }
-
-        .upgrade.perk-owned {
-            border-color: rgba(167, 139, 250, 0.35);
-            background: rgba(167, 139, 250, 0.08);
-            opacity: 1;
-        }
-
-        .upgrade.perk-owned .upgrade-cost { color: #c4b5fd; }
-
-        .upgrade:active:not(:disabled) { transform: scale(0.99); }
+        .upgrade.can-buy:hover { background: rgba(212, 160, 84, 0.09); }
 
         .upgrade:disabled {
-            opacity: 0.38;
+            opacity: 0.4;
             cursor: not-allowed;
         }
 
@@ -559,81 +334,66 @@
             outline-offset: 1px;
         }
 
+        .upgrade.perk-owned {
+            border-color: rgba(212, 160, 84, 0.25);
+            background: rgba(212, 160, 84, 0.06);
+            opacity: 1;
+        }
+
         .upgrade-icon {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 8px;
-            background: var(--surface-2);
-            color: var(--accent-soft);
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: 7px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            color: var(--accent);
+        }
+
+        .svg-icon {
+            display: block;
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+
+        .upgrade-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.75rem;
+            margin-bottom: 0.1rem;
         }
 
         .upgrade-name {
             font-weight: 600;
-            font-size: 0.85rem;
-            margin-bottom: 0.1rem;
-            letter-spacing: -0.01em;
-        }
-
-        .upgrade-desc {
-            font-size: 0.72rem;
-            color: var(--text-dim);
-            line-height: 1.35;
-        }
-
-        .upgrade-meta {
-            text-align: right;
+            font-size: 0.84rem;
+            color: var(--text);
         }
 
         .upgrade-cost {
-            font-weight: 700;
-            font-size: 0.82rem;
-            color: var(--accent-soft);
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .upgrade-desc {
+            font-size: 0.74rem;
+            color: var(--text-dim);
+            line-height: 1.35;
+            margin-bottom: 0.15rem;
+        }
+
+        .upgrade-effect {
+            font-size: 0.68rem;
+            color: var(--text-muted);
             font-variant-numeric: tabular-nums;
         }
 
-        .upgrade-owned {
-            font-size: 0.65rem;
-            color: var(--text-dim);
-            margin-top: 0.15rem;
-            font-weight: 500;
-        }
-
-        .ticker-wrap {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            font-size: 0.75rem;
-            padding: 0.55rem 0;
-            background: rgba(12, 10, 9, 0.85);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid var(--border);
-            color: var(--text-dim);
-        }
-
-        .ticker {
-            display: inline-block;
-            animation: ticker 40s linear infinite;
-        }
-
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-50%, 0, 0); }
-        }
-
-        .testimonial-item {
-            display: inline-block;
-            padding: 0 1.5rem;
-            font-style: italic;
-        }
-
         @media (prefers-reduced-motion: reduce) {
-            .ambient-orb, .bap-pulse, .avatar-ring::after, .ticker { animation: none; }
             .progress-fill, .cat-button, .upgrade { transition: none; }
             .float-text { animation: none; }
         }
@@ -641,33 +401,18 @@
 </head>
 <body>
 
-    <div class="ambient" aria-hidden="true">
-        <div class="bg-pattern"></div>
-        <div class="ambient-orb ambient-orb--1"></div>
-        <div class="ambient-orb ambient-orb--2"></div>
-        <div class="ambient-orb ambient-orb--3"></div>
-    </div>
-
     <div class="shell">
         <header class="topbar">
-            <a class="site-link" href="https://littlepossum.xyz">← littlepossum.xyz</a>
-            <span class="badge">Idle transformation</span>
+            <a class="site-link" href="https://littlepossum.xyz">littlepossum.xyz</a>
         </header>
 
         <div class="layout">
             <main class="panel panel--game">
-                <p class="eyebrow">
-                    <svg class="logo-mark svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M12 3c-2 5-7 6-7 12a7 7 0 0014 0c0-6-5-7-7-12z"/><circle cx="9" cy="13" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1" fill="currentColor" stroke="none"/></svg>
-                    Become Cat
-                </p>
+                <p class="eyebrow">Become Cat</p>
                 <h1 class="title">Who can stop you?</h1>
-                <p class="subtitle">A very slow, inevitable transformation. One bap at a time.</p>
+                <p class="subtitle">A very slow transformation. One bap at a time.</p>
 
-                <div class="avatar-wrap">
-                    <div class="avatar-ring" aria-hidden="true"></div>
-                    <div id="stageIcon" class="stage-icon" aria-hidden="true"></div>
-                </div>
-                <p id="levelLabel" class="level-label"><span>Status ·</span> Mostly Human</p>
+                <p id="levelLabel" class="level-label">Stage <strong>01</strong> · Mostly Human</p>
 
                 <div class="progress-block">
                     <div class="progress-header">
@@ -702,15 +447,12 @@
                 </div>
 
                 <div class="bap-zone">
-                    <span class="bap-pulse" aria-hidden="true"></span>
-                    <span class="bap-pulse" aria-hidden="true"></span>
                     <button id="catButton" class="cat-button" type="button" aria-describedby="messageDisplay">
-                        <svg class="bap-icon svg-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><ellipse cx="12" cy="14" rx="5" ry="4"/><circle cx="8" cy="9" r="2.2"/><circle cx="12" cy="7.5" r="2.2"/><circle cx="16" cy="9" r="2.2"/></svg>
-                        <span id="buttonLabel">Bap!</span>
+                        <span id="buttonLabel">Bap</span>
                     </button>
                 </div>
 
-                <p id="messageDisplay" class="message-display">Press Bap! to begin your long journey toward cat.</p>
+                <p id="messageDisplay" class="message-display">Press Bap to begin your long journey toward cat.</p>
             </main>
 
             <aside class="panel" aria-label="Supplies">
@@ -720,23 +462,6 @@
                 </div>
                 <div id="upgradeList" class="upgrade-list"></div>
             </aside>
-        </div>
-    </div>
-
-    <div class="ticker-wrap" aria-hidden="true">
-        <div class="ticker">
-            <span class="testimonial-item">"Day 3 and I own four cardboard boxes. Life is good." — A. Smith</span>
-            <span class="testimonial-item">"The feather toy paid for itself in one afternoon." — L. Jones</span>
-            <span class="testimonial-item">"10/10 would bap again. Still only 4% cat though." — M. Garcia</span>
-            <span class="testimonial-item">"My window perch has excellent bird coverage." — J. Rodriguez</span>
-            <span class="testimonial-item">"Peak floofiness is a marathon, not a sprint." — E. Davis</span>
-            <span class="testimonial-item">"The automatic feeder understands me." — C. Wilson</span>
-            <span class="testimonial-item">"Day 3 and I own four cardboard boxes. Life is good." — A. Smith</span>
-            <span class="testimonial-item">"The feather toy paid for itself in one afternoon." — L. Jones</span>
-            <span class="testimonial-item">"10/10 would bap again. Still only 4% cat though." — M. Garcia</span>
-            <span class="testimonial-item">"My window perch has excellent bird coverage." — J. Rodriguez</span>
-            <span class="testimonial-item">"Peak floofiness is a marathon, not a sprint." — E. Davis</span>
-            <span class="testimonial-item">"The automatic feeder understands me." — C. Wilson</span>
         </div>
     </div>
 
@@ -753,7 +478,6 @@
         const progressTrack = document.getElementById('progressTrack');
         const progressPercent = document.getElementById('progressPercent');
         const levelLabel = document.getElementById('levelLabel');
-        const stageIcon = document.getElementById('stageIcon');
         const essenceDisplay = document.getElementById('essenceDisplay');
         const cpsDisplay = document.getElementById('cpsDisplay');
         const bapPowerDisplay = document.getElementById('bapPowerDisplay');
@@ -764,33 +488,20 @@
 
         const svg = (body) => `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
 
-        const STAGE_SVGS = [
-            '<circle cx="12" cy="12" r="8"/>',
-            '<circle cx="12" cy="12" r="8"/><path d="M7 7l2-3M17 7l-2-3"/>',
-            '<circle cx="12" cy="12" r="8"/><path d="M6 6l3-2M18 6l-3-2"/><circle cx="9" cy="12" r=".8" fill="currentColor"/><circle cx="15" cy="12" r=".8" fill="currentColor"/>',
-            '<path d="M6 8l2-4M18 8l-2-4"/><ellipse cx="12" cy="13" rx="7" ry="6"/><circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/>',
-            '<path d="M5 7l3-4M19 7l-3-4"/><ellipse cx="12" cy="13" rx="7.5" ry="6.5"/><circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/><path d="M5 13h2M17 13h2"/>',
-            '<path d="M4 6l4-3M20 6l-4-3"/><ellipse cx="12" cy="14" rx="8" ry="6"/><circle cx="9" cy="13" r="1" fill="currentColor"/><circle cx="15" cy="13" r="1" fill="currentColor"/><path d="M4 14h2M18 14h2"/><path d="M10 16h4"/>',
-            '<path d="M3 5l4-3M21 5l-4-3"/><ellipse cx="12" cy="14" rx="8.5" ry="6.5"/><circle cx="9" cy="13" r="1.1" fill="currentColor"/><circle cx="15" cy="13" r="1.1" fill="currentColor"/><path d="M3 14h2M19 14h2"/><path d="M9 17q3 2 6 0"/>',
-            '<path d="M3 4l4-3M21 4l-4-3"/><ellipse cx="12" cy="14" rx="9" ry="7"/><circle cx="8.5" cy="13" r="1.2" fill="currentColor"/><circle cx="15.5" cy="13" r="1.2" fill="currentColor"/><path d="M2 14h2.5M19.5 14H22"/><path d="M8 17q4 3 8 0"/><path d="M12 18v3"/>',
-            '<path d="M2 3l5-2M22 3l-5-2"/><ellipse cx="12" cy="14" rx="9.5" ry="7"/><circle cx="8" cy="13" r="1.3" fill="currentColor"/><circle cx="16" cy="13" r="1.3" fill="currentColor"/><path d="M1.5 14h3M19.5 14h3"/><path d="M7 17q5 4 10 0"/><path d="M12 18v3"/><path d="M8 21h8" stroke-width="1.2"/>',
-            '<path d="M2 2l5-1M22 2l-5-1"/><ellipse cx="12" cy="15" rx="10" ry="6"/><circle cx="8" cy="14" r="1.3" fill="currentColor"/><circle cx="16" cy="14" r="1.3" fill="currentColor"/><path d="M1 14h3M20 14h3"/><path d="M6 17q6 5 12 0"/><path d="M7 20h10" stroke-width="2"/><path d="M5 22h14" stroke-width="1.2" opacity=".6"/>'
-        ];
-
         const SUPPLY_SVGS = {
-            kibble: '<path d="M4 15h16v3H4z"/><path d="M6 15V11a6 6 0 0112 0v4"/><circle cx="8" cy="17.5" r=".6" fill="currentColor"/><circle cx="12" cy="17.5" r=".6" fill="currentColor"/><circle cx="16" cy="17.5" r=".6" fill="currentColor"/>',
+            kibble: '<path d="M4 15h16v3H4z"/><path d="M6 15V11a6 6 0 0112 0v4"/>',
             'feather-toy': '<path d="M12 20V8"/><path d="M12 8C8 8 5 11 5 14s2 4 7 4"/><path d="M12 10c3 0 5 2 5 4s-1 3-5 3"/>',
             'cardboard-box': '<path d="M3 9l9-4 9 4v10l-9 4-9-4z"/><path d="M3 9l9 4 9-4M12 13v10"/>',
-            'scratching-post': '<path d="M8 20V6l4-2 4 2v14"/><path d="M6 20h12"/><path d="M9 8h1M11 11h1M9 14h1M13 8h1M15 11h1"/>',
-            'crinkle-ball': '<circle cx="12" cy="12" r="7"/><path d="M8 9l2 2-2 2M14 9l-2 2 2 2M9 14h6"/>',
-            'window-perch': '<path d="M4 5h16v12H4z"/><path d="M4 12h16"/><path d="M7 17h10v3H7z"/><circle cx="17" cy="8" r="1.5"/>',
-            'laser-pointer': '<circle cx="7" cy="16" r="2" fill="#ef4444" stroke="none"/><path d="M9 15l10-8"/><path d="M17 5l3-1-1 3"/>',
-            'cat-tree': '<path d="M12 3v18"/><path d="M6 9h12"/><path d="M5 14h14"/><path d="M7 19h10"/><path d="M4 9l2-2M20 9l-2-2"/>',
-            'catnip-plant': '<path d="M12 20V10"/><path d="M12 10C8 10 6 8 6 6s2-3 6-1"/><path d="M12 10c4 0 6-2 6-4s-2-3-6-1"/><path d="M12 14c-3 0-5-2-5-4"/>',
-            'heated-bed': '<path d="M5 14h14a3 3 0 010 6H5a3 3 0 010-6z"/><path d="M8 11c0-2 1.5-4 4-4s4 2 4 4"/><path d="M3 10c1-1 2-1 3 0M21 10c-1-1-2-1-3 0"/>',
-            'wet-food': '<path d="M9 4h6v3H9z"/><path d="M8 7h8a2 2 0 012 2v9a3 3 0 01-3 3H9a3 3 0 01-3-3V9a2 2 0 012-2z"/><path d="M9 12h6"/>',
-            'automatic-feeder': '<path d="M6 4h12v6a6 6 0 01-12 0z"/><path d="M12 16v4"/><path d="M8 20h8"/><circle cx="12" cy="7" r="1.5" fill="currentColor"/><path d="M4 14h3M17 14h3"/>',
-            'cat-hrt': '<path d="M9 2h6v3l-1 1h-4z"/><rect x="7" y="6" width="10" height="14" rx="2"/><path d="M9 11h6"/><path d="M12 2v2"/><circle cx="12" cy="15" r="2"/><path d="M5 10l-2 1M19 10l2 1"/>'
+            'scratching-post': '<path d="M8 20V6l4-2 4 2v14"/><path d="M6 20h12"/>',
+            'crinkle-ball': '<circle cx="12" cy="12" r="7"/><path d="M8 9l2 2-2 2M14 9l-2 2 2 2"/>',
+            'window-perch': '<path d="M4 5h16v12H4z"/><path d="M4 12h16"/><path d="M7 17h10v3H7z"/>',
+            'laser-pointer': '<circle cx="7" cy="16" r="2"/><path d="M9 15l10-8"/><path d="M17 5l3-1-1 3"/>',
+            'cat-tree': '<path d="M12 3v18"/><path d="M6 9h12"/><path d="M5 14h14"/><path d="M7 19h10"/>',
+            'catnip-plant': '<path d="M12 20V10"/><path d="M12 10C8 10 6 8 6 6s2-3 6-1"/><path d="M12 10c4 0 6-2 6-4s-2-3-6-1"/>',
+            'heated-bed': '<path d="M5 14h14a3 3 0 010 6H5a3 3 0 010-6z"/><path d="M8 11c0-2 1.5-4 4-4s4 2 4 4"/>',
+            'wet-food': '<path d="M9 4h6v3H9z"/><path d="M8 7h8a2 2 0 012 2v9a3 3 0 01-3 3H9a3 3 0 01-3-3V9a2 2 0 012-2z"/>',
+            'automatic-feeder': '<path d="M6 4h12v6a6 6 0 01-12 0z"/><path d="M12 16v4"/><path d="M8 20h8"/>',
+            'cat-hrt': '<path d="M9 2h6v3l-1 1h-4z"/><rect x="7" y="6" width="10" height="14" rx="2"/><path d="M9 11h6"/><path d="M12 2v2"/>'
         };
 
         const messages = [
@@ -816,7 +527,7 @@
             'You have entered loaf mode.',
             'The transformation is slow. The transformation is certain.',
             'One more bap. Always one more bap.',
-            'The whiskers feel… correct.',
+            'The whiskers feel correct.',
             'Your tail is definitely real. Probably.'
         ];
 
@@ -860,7 +571,6 @@
         };
 
         const upgradeEls = new Map();
-
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         let state = {
@@ -881,8 +591,7 @@
 
         function getTransformPercent() {
             const ratio = Math.min(1, state.totalEssence / TRANSFORM_GOAL);
-            const pct = 100 * Math.pow(ratio, TRANSFORM_EXPONENT);
-            return Math.min(100, pct);
+            return Math.min(100, 100 * Math.pow(ratio, TRANSFORM_EXPONENT));
         }
 
         function getLevel(pct) {
@@ -900,9 +609,7 @@
         function getPerkMultiplier() {
             let mult = 1;
             for (const u of upgrades) {
-                if (u.type === 'perk' && state.owned[u.id] > 0) {
-                    mult *= u.mult;
-                }
+                if (u.type === 'perk' && state.owned[u.id] > 0) mult *= u.mult;
             }
             return mult;
         }
@@ -931,15 +638,11 @@
         function getEffectLabel(upgrade, owned) {
             if (upgrade.type === 'perk') {
                 const pct = Math.round((upgrade.mult - 1) * 100);
-                return owned > 0 ? `+${pct}% all essence · Active` : `+${pct}% all essence`;
+                return owned > 0 ? `+${pct}% all essence` : `+${pct}% all essence · one-time`;
             }
-            const perUnit = upgrade.type === 'click'
-                ? `+${upgrade.basePower}/bap`
-                : `+${upgrade.baseCps}/s`;
+            const perUnit = upgrade.type === 'click' ? `+${upgrade.basePower}/bap` : `+${upgrade.baseCps}/s`;
             if (owned === 0) return perUnit;
-            const total = upgrade.type === 'click'
-                ? upgrade.basePower * owned
-                : upgrade.baseCps * owned;
+            const total = upgrade.type === 'click' ? upgrade.basePower * owned : upgrade.baseCps * owned;
             return `${perUnit} · ${formatNum(total)} total`;
         }
 
@@ -975,7 +678,6 @@
         function migrateOwned(savedOwned) {
             const merged = Object.fromEntries(upgrades.map((u) => [u.id, 0]));
             if (!savedOwned) return merged;
-
             for (const [key, count] of Object.entries(savedOwned)) {
                 const id = LEGACY_OWNED_MAP[key] || key;
                 if (id in merged) merged[id] += count;
@@ -1019,13 +721,13 @@
                 btn.dataset.id = upgrade.id;
                 btn.innerHTML = `
                     <span class="upgrade-icon" data-field="icon"></span>
-                    <span>
-                        <div class="upgrade-name" data-field="name"></div>
+                    <span class="upgrade-body">
+                        <div class="upgrade-top">
+                            <span class="upgrade-name" data-field="name"></span>
+                            <span class="upgrade-cost" data-field="cost"></span>
+                        </div>
                         <div class="upgrade-desc" data-field="desc"></div>
-                    </span>
-                    <span class="upgrade-meta">
-                        <div class="upgrade-cost" data-field="cost"></div>
-                        <div class="upgrade-owned" data-field="owned"></div>
+                        <div class="upgrade-effect" data-field="effect"></div>
                     </span>
                 `;
                 btn.addEventListener('click', () => buyUpgrade(upgrade.id));
@@ -1044,32 +746,32 @@
                 const cost = getUpgradeCost(upgrade);
                 const atMax = upgrade.maxOwned && owned >= upgrade.maxOwned;
                 const canAfford = !atMax && state.essence >= cost;
-                const effectLabel = getEffectLabel(upgrade, owned);
 
                 btn.classList.toggle('can-buy', canAfford);
                 btn.classList.toggle('perk-owned', upgrade.type === 'perk' && atMax);
                 btn.disabled = !canAfford;
                 btn.querySelector('[data-field="name"]').textContent = upgrade.name;
-                btn.querySelector('[data-field="desc"]').textContent = `${upgrade.desc} · ${effectLabel}`;
-                btn.querySelector('[data-field="cost"]').textContent = atMax ? 'Active' : formatNum(cost);
-                btn.querySelector('[data-field="owned"]').textContent = upgrade.type === 'perk' ? (atMax ? 'Perk' : 'Once') : `×${owned}`;
+                btn.querySelector('[data-field="desc"]').textContent = upgrade.desc;
+                btn.querySelector('[data-field="effect"]').textContent = upgrade.type === 'perk' && atMax
+                    ? 'Active'
+                    : `${getEffectLabel(upgrade, owned)}${owned > 0 && upgrade.type !== 'perk' ? ` · ×${owned}` : ''}`;
+                btn.querySelector('[data-field="cost"]').textContent = atMax ? 'Owned' : formatNum(cost);
             }
         }
 
         function updateUI() {
             const pct = getTransformPercent();
             const level = getLevel(pct);
+            const stage = String(level.index + 1).padStart(2, '0');
 
             progressBar.style.width = `${pct}%`;
             progressTrack.setAttribute('aria-valuenow', pct.toFixed(2));
-            progressTrack.toggleAttribute('data-active', pct > 0.5);
             progressPercent.textContent = `${pct.toFixed(2)}%`;
-            levelLabel.innerHTML = `<span>Status ·</span> ${level.label}`;
-            stageIcon.innerHTML = svg(STAGE_SVGS[level.index]);
+            levelLabel.innerHTML = `Stage <strong>${stage}</strong> · ${level.label}`;
             essenceDisplay.textContent = formatNum(state.essence);
             cpsDisplay.textContent = formatNum(getCps());
             bapPowerDisplay.textContent = formatNum(getClickPower());
-            buttonLabel.textContent = pct >= 100 ? 'Fully Cat' : 'Bap!';
+            buttonLabel.textContent = pct >= 100 ? 'Fully cat' : 'Bap';
             shopCount.textContent = `${getTotalOwned()} owned`;
 
             milestones.forEach((m) => {
@@ -1082,20 +784,19 @@
         function buyUpgrade(id) {
             const upgrade = upgrades.find((u) => u.id === id);
             if (upgrade.maxOwned && state.owned[id] >= upgrade.maxOwned) return;
-
             const cost = getUpgradeCost(upgrade);
             if (state.essence < cost) return;
 
             state.essence -= cost;
             state.owned[id] += 1;
             messageDisplay.textContent = upgrade.type === 'perk'
-                ? 'Cat HRT acquired. The whiskers feel… correct.'
-                : `Got ${upgrade.name}. The transformation deepens.`;
+                ? 'Cat HRT acquired. The whiskers feel correct.'
+                : `Got ${upgrade.name}.`;
             updateUI();
             save();
         }
 
-        function bap(event) {
+        function bap() {
             const gained = getClickPower();
             addEssence(gained);
             messageDisplay.textContent = pickMessage();
@@ -1108,7 +809,6 @@
             const now = Date.now();
             const delta = (now - state.lastTick) / 1000;
             state.lastTick = now;
-
             const cps = getCps();
             if (cps > 0 && delta > 0) {
                 addEssence(cps * delta);
@@ -1120,7 +820,7 @@
         button.addEventListener('keydown', (event) => {
             if (event.key === ' ' || event.key === 'Enter') {
                 event.preventDefault();
-                bap(event);
+                bap();
             }
         });
 
