@@ -27,7 +27,7 @@ jobs:
       - name: Prepare site
         run: |
           mkdir -p _site
-          cp index.html .nojekyll _site/
+          cp index.html .nojekyll CNAME _site/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -73,7 +73,7 @@ jobs:
           if [ "${{ steps.deploy1.outcome }}" = "success" ] \
             || [ "${{ steps.deploy2.outcome }}" = "success" ] \
             || [ "${{ steps.deploy3.outcome }}" = "success" ]; then
-            echo "page_url=https://leapcoded.github.io/become-cat/" >> "$GITHUB_OUTPUT"
+            echo "page_url=https://cat.littlepossum.xyz/" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           echo "::error::GitHub Pages deploy failed after 3 attempts."
