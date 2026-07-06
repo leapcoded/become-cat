@@ -522,6 +522,31 @@
             background: rgba(245, 158, 11, 0.1);
         }
 
+        .upgrade.perk {
+            border-color: rgba(167, 139, 250, 0.25);
+            background: rgba(167, 139, 250, 0.04);
+        }
+
+        .upgrade.perk.can-buy {
+            border-color: rgba(167, 139, 250, 0.5);
+            background: rgba(167, 139, 250, 0.1);
+        }
+
+        .upgrade.perk.can-buy:hover {
+            border-color: rgba(167, 139, 250, 0.7);
+            background: rgba(167, 139, 250, 0.14);
+        }
+
+        .upgrade.perk .upgrade-icon { color: #c4b5fd; }
+
+        .upgrade.perk-owned {
+            border-color: rgba(167, 139, 250, 0.35);
+            background: rgba(167, 139, 250, 0.08);
+            opacity: 1;
+        }
+
+        .upgrade.perk-owned .upgrade-cost { color: #c4b5fd; }
+
         .upgrade:active:not(:disabled) { transform: scale(0.99); }
 
         .upgrade:disabled {
@@ -764,7 +789,8 @@
             'catnip-plant': '<path d="M12 20V10"/><path d="M12 10C8 10 6 8 6 6s2-3 6-1"/><path d="M12 10c4 0 6-2 6-4s-2-3-6-1"/><path d="M12 14c-3 0-5-2-5-4"/>',
             'heated-bed': '<path d="M5 14h14a3 3 0 010 6H5a3 3 0 010-6z"/><path d="M8 11c0-2 1.5-4 4-4s4 2 4 4"/><path d="M3 10c1-1 2-1 3 0M21 10c-1-1-2-1-3 0"/>',
             'wet-food': '<path d="M9 4h6v3H9z"/><path d="M8 7h8a2 2 0 012 2v9a3 3 0 01-3 3H9a3 3 0 01-3-3V9a2 2 0 012-2z"/><path d="M9 12h6"/>',
-            'automatic-feeder': '<path d="M6 4h12v6a6 6 0 01-12 0z"/><path d="M12 16v4"/><path d="M8 20h8"/><circle cx="12" cy="7" r="1.5" fill="currentColor"/><path d="M4 14h3M17 14h3"/>'
+            'automatic-feeder': '<path d="M6 4h12v6a6 6 0 01-12 0z"/><path d="M12 16v4"/><path d="M8 20h8"/><circle cx="12" cy="7" r="1.5" fill="currentColor"/><path d="M4 14h3M17 14h3"/>',
+            'cat-hrt': '<path d="M9 2h6v3l-1 1h-4z"/><rect x="7" y="6" width="10" height="14" rx="2"/><path d="M9 11h6"/><path d="M12 2v2"/><circle cx="12" cy="15" r="2"/><path d="M5 10l-2 1M19 10l2 1"/>'
         };
 
         const messages = [
@@ -789,7 +815,9 @@
             'You demand chin scratches. Immediately.',
             'You have entered loaf mode.',
             'The transformation is slow. The transformation is certain.',
-            'One more bap. Always one more bap.'
+            'One more bap. Always one more bap.',
+            'The whiskers feel… correct.',
+            'Your tail is definitely real. Probably.'
         ];
 
         const levels = [
@@ -817,7 +845,8 @@
             { id: 'catnip-plant', name: 'Catnip Plant', desc: 'Local fauna reports concern.', baseCost: 55_000, type: 'passive', baseCps: 180 },
             { id: 'heated-bed', name: 'Heated Bed', desc: 'Toasty. Non-negotiable.', baseCost: 220_000, type: 'passive', baseCps: 850 },
             { id: 'wet-food', name: 'Wet Food', desc: 'The good stuff. Served at 5 AM.', baseCost: 1_500_000, type: 'passive', baseCps: 4_000 },
-            { id: 'automatic-feeder', name: 'Automatic Feeder', desc: 'Food appears. You accept.', baseCost: 8_000_000, type: 'passive', baseCps: 15_000 }
+            { id: 'automatic-feeder', name: 'Automatic Feeder', desc: 'Food appears. You accept.', baseCost: 8_000_000, type: 'passive', baseCps: 15_000 },
+            { id: 'cat-hrt', name: 'Cat HRT', desc: 'Physician-approved whisker protocol.', baseCost: 150_000_000, type: 'perk', mult: 1.75, maxOwned: 1 }
         ];
 
         const LEGACY_OWNED_MAP = {
@@ -868,12 +897,22 @@
             return { ...current, index };
         }
 
+        function getPerkMultiplier() {
+            let mult = 1;
+            for (const u of upgrades) {
+                if (u.type === 'perk' && state.owned[u.id] > 0) {
+                    mult *= u.mult;
+                }
+            }
+            return mult;
+        }
+
         function getClickPower() {
             let power = 1;
             for (const u of upgrades) {
                 if (u.type === 'click') power += u.basePower * state.owned[u.id];
             }
-            return power;
+            return power * getPerkMultiplier();
         }
 
         function getCps() {
@@ -881,11 +920,27 @@
             for (const u of upgrades) {
                 if (u.type === 'passive') cps += u.baseCps * state.owned[u.id];
             }
-            return cps;
+            return cps * getPerkMultiplier();
         }
 
         function getUpgradeCost(upgrade) {
+            if (upgrade.maxOwned && state.owned[upgrade.id] >= upgrade.maxOwned) return Infinity;
             return Math.ceil(upgrade.baseCost * Math.pow(COST_MULT, state.owned[upgrade.id]));
+        }
+
+        function getEffectLabel(upgrade, owned) {
+            if (upgrade.type === 'perk') {
+                const pct = Math.round((upgrade.mult - 1) * 100);
+                return owned > 0 ? `+${pct}% all essence · Active` : `+${pct}% all essence`;
+            }
+            const perUnit = upgrade.type === 'click'
+                ? `+${upgrade.basePower}/bap`
+                : `+${upgrade.baseCps}/s`;
+            if (owned === 0) return perUnit;
+            const total = upgrade.type === 'click'
+                ? upgrade.basePower * owned
+                : upgrade.baseCps * owned;
+            return `${perUnit} · ${formatNum(total)} total`;
         }
 
         function getTotalOwned() {
@@ -960,7 +1015,7 @@
             for (const upgrade of upgrades) {
                 const btn = document.createElement('button');
                 btn.type = 'button';
-                btn.className = 'upgrade';
+                btn.className = `upgrade${upgrade.type === 'perk' ? ' perk' : ''}`;
                 btn.dataset.id = upgrade.id;
                 btn.innerHTML = `
                     <span class="upgrade-icon" data-field="icon"></span>
@@ -974,6 +1029,7 @@
                     </span>
                 `;
                 btn.addEventListener('click', () => buyUpgrade(upgrade.id));
+                btn.querySelector('[data-field="icon"]').innerHTML = svg(SUPPLY_SVGS[upgrade.id]);
                 upgradeList.appendChild(btn);
                 upgradeEls.set(upgrade.id, btn);
             }
@@ -986,24 +1042,17 @@
 
                 const owned = state.owned[upgrade.id];
                 const cost = getUpgradeCost(upgrade);
-                const canAfford = state.essence >= cost;
-                const totalEffect = upgrade.type === 'click'
-                    ? upgrade.basePower * owned
-                    : upgrade.baseCps * owned;
-                const perUnit = upgrade.type === 'click'
-                    ? `+${upgrade.basePower}/bap`
-                    : `+${upgrade.baseCps}/s`;
-                const effectLabel = owned > 0
-                    ? `${perUnit} · ${formatNum(totalEffect)} total`
-                    : perUnit;
+                const atMax = upgrade.maxOwned && owned >= upgrade.maxOwned;
+                const canAfford = !atMax && state.essence >= cost;
+                const effectLabel = getEffectLabel(upgrade, owned);
 
                 btn.classList.toggle('can-buy', canAfford);
+                btn.classList.toggle('perk-owned', upgrade.type === 'perk' && atMax);
                 btn.disabled = !canAfford;
-                btn.querySelector('[data-field="icon"]').innerHTML = svg(SUPPLY_SVGS[upgrade.id]);
                 btn.querySelector('[data-field="name"]').textContent = upgrade.name;
                 btn.querySelector('[data-field="desc"]').textContent = `${upgrade.desc} · ${effectLabel}`;
-                btn.querySelector('[data-field="cost"]').textContent = formatNum(cost);
-                btn.querySelector('[data-field="owned"]').textContent = `×${owned}`;
+                btn.querySelector('[data-field="cost"]').textContent = atMax ? 'Active' : formatNum(cost);
+                btn.querySelector('[data-field="owned"]').textContent = upgrade.type === 'perk' ? (atMax ? 'Perk' : 'Once') : `×${owned}`;
             }
         }
 
@@ -1032,12 +1081,16 @@
 
         function buyUpgrade(id) {
             const upgrade = upgrades.find((u) => u.id === id);
+            if (upgrade.maxOwned && state.owned[id] >= upgrade.maxOwned) return;
+
             const cost = getUpgradeCost(upgrade);
             if (state.essence < cost) return;
 
             state.essence -= cost;
             state.owned[id] += 1;
-            messageDisplay.textContent = `Got ${upgrade.name}. The transformation deepens.`;
+            messageDisplay.textContent = upgrade.type === 'perk'
+                ? 'Cat HRT acquired. The whiskers feel… correct.'
+                : `Got ${upgrade.name}. The transformation deepens.`;
             updateUI();
             save();
         }
