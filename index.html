@@ -570,7 +570,7 @@
             { min: 70, label: 'The Tail-Talk Phase', short: 'Tail-Talk', vibe: 'You can\u2019t control it\u2014it wiggles when you\u2019re happy and puffs up when you\u2019re startled.' },
             { min: 80, label: 'Gravity Negation', short: 'Gravity', vibe: 'You start jumping onto high shelves without thinking about it. How did you get up there? Who knows!' },
             { min: 90, label: 'The Midnight Zoomies', short: 'Zoomies', vibe: 'Your energy levels are peaking; it\u2019s 3 AM and you need to run at maximum velocity for no reason.' },
-            { min: 100, label: 'Total Cozy', short: 'Cozy', vibe: 'You are peak cat. You\u2019ve achieved maximum floof, total comfort, and the ability to nap literally anywhere.' }
+            { min: 100, label: 'Total Cat', short: 'Cat', vibe: 'You are peak cat. You\u2019ve achieved maximum floof, total comfort, and the ability to nap literally anywhere.' }
         ];
 
         const upgrades = [
@@ -811,7 +811,7 @@
             essenceDisplay.textContent = formatNum(state.essence);
             cpsDisplay.textContent = formatNum(getCps());
             bapPowerDisplay.textContent = formatNum(getClickPower());
-            buttonLabel.textContent = pct >= 100 ? 'Total Cozy' : 'Bap';
+            buttonLabel.textContent = pct >= 100 ? 'Total Cat' : 'Bap';
             shopCount.textContent = `${getTotalOwned()} owned`;
 
             getMilestones().forEach((m) => {
