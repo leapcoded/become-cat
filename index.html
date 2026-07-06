@@ -109,13 +109,21 @@
             font-size: 0.82rem;
             font-weight: 500;
             color: var(--text-muted);
-            margin: 0 0 1rem;
+            margin: 0 0 0.35rem;
         }
 
         .level-label strong {
             color: var(--text);
             font-weight: 600;
             font-variant-numeric: tabular-nums;
+        }
+
+        .stage-vibe {
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            line-height: 1.45;
+            margin: 0 auto 1rem;
+            max-width: 30rem;
         }
 
         .progress-block { margin-bottom: 1.25rem; text-align: left; }
@@ -157,12 +165,32 @@
 
         .progress-milestones {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 0.25rem;
+            grid-template-columns: repeat(11, 1fr);
+            gap: 0.15rem;
             margin-top: 0.45rem;
-            font-size: 0.62rem;
+            font-size: 0.52rem;
             color: var(--text-dim);
             text-align: center;
+        }
+
+        .milestone {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 639px) {
+            .progress-milestones { font-size: 0; }
+            .milestone::before {
+                content: '';
+                display: block;
+                width: 4px;
+                height: 4px;
+                margin: 0 auto;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.15);
+            }
+            .milestone.reached::before { background: var(--accent); }
         }
 
         .milestone.reached { color: var(--accent); }
@@ -416,7 +444,8 @@
                 <h1 class="title">Who can stop you?</h1>
                 <p class="subtitle">A very slow transformation. One bap at a time.</p>
 
-                <p id="levelLabel" class="level-label">Stage <strong>1</strong> · Human</p>
+                <p id="levelLabel" class="level-label">Stage <strong>1</strong> · Just Human</p>
+                <p id="stageVibe" class="stage-vibe">Dealing with daily life; completely un-feline.</p>
 
                 <div class="progress-block">
                     <div class="progress-header">
@@ -426,13 +455,7 @@
                     <div id="progressTrack" class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Cat transformation progress">
                         <div id="progressBar" class="progress-fill"></div>
                     </div>
-                    <div class="progress-milestones" aria-hidden="true">
-                        <span class="milestone" data-at="0">Human</span>
-                        <span class="milestone" data-at="25">Whiskers</span>
-                        <span class="milestone" data-at="50">Floof</span>
-                        <span class="milestone" data-at="75">Napper</span>
-                        <span class="milestone" data-at="100">Loaf</span>
-                    </div>
+                    <div id="progressMilestones" class="progress-milestones" aria-hidden="true"></div>
                 </div>
 
                 <div class="stats">
@@ -482,13 +505,14 @@
         const progressTrack = document.getElementById('progressTrack');
         const progressPercent = document.getElementById('progressPercent');
         const levelLabel = document.getElementById('levelLabel');
+        const stageVibe = document.getElementById('stageVibe');
         const essenceDisplay = document.getElementById('essenceDisplay');
         const cpsDisplay = document.getElementById('cpsDisplay');
         const bapPowerDisplay = document.getElementById('bapPowerDisplay');
         const upgradeList = document.getElementById('upgradeList');
         const shopCount = document.getElementById('shopCount');
         const bapZone = document.querySelector('.bap-zone');
-        const milestones = document.querySelectorAll('.milestone');
+        const progressMilestones = document.getElementById('progressMilestones');
 
         const svg = (body) => `<svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
 
@@ -536,11 +560,17 @@
         ];
 
         const levels = [
-            { min: 0, label: 'Human' },
-            { min: 25, label: 'Whiskers' },
-            { min: 50, label: 'Floof' },
-            { min: 75, label: 'Napper' },
-            { min: 100, label: 'Loaf' }
+            { min: 0, label: 'Just Human', short: 'Human', vibe: 'Dealing with daily life; completely un-feline.' },
+            { min: 10, label: 'Sunbeam Seeker', short: 'Sunbeam', vibe: 'You suddenly find yourself magnetized to patches of sunlight on the floor.' },
+            { min: 20, label: 'The "Nose-Boop" Reflex', short: 'Nose-Boop', vibe: 'Your sense of smell gets suspiciously good, especially when someone opens a bag of snacks.' },
+            { min: 30, label: 'The Head-Tilt Upgrade', short: 'Head-Tilt', vibe: 'Curiosity takes over; you find yourself tilting your head at weird angles to investigate things.' },
+            { min: 40, label: 'Toe-Bean Development', short: 'Toe-Bean', vibe: 'Your feet feel "spongy" and softer; you stop wearing shoes because they\u2019re suddenly annoying.' },
+            { min: 50, label: 'The Great Stretch', short: 'Stretch', vibe: 'That half-human, half-cat point where you just want to reach every limb to the sky and yawn for five minutes straight.' },
+            { min: 60, label: 'Whisker Tingles', short: 'Whiskers', vibe: 'You get that tickly feeling in your cheeks, and you suddenly know exactly how narrow a gap is before you try to walk through it.' },
+            { min: 70, label: 'The Tail-Talk Phase', short: 'Tail-Talk', vibe: 'You can\u2019t control it\u2014it wiggles when you\u2019re happy and puffs up when you\u2019re startled.' },
+            { min: 80, label: 'Gravity Negation', short: 'Gravity', vibe: 'You start jumping onto high shelves without thinking about it. How did you get up there? Who knows!' },
+            { min: 90, label: 'The Midnight Zoomies', short: 'Zoomies', vibe: 'Your energy levels are peaking; it\u2019s 3 AM and you need to run at maximum velocity for no reason.' },
+            { min: 100, label: 'Total Cozy', short: 'Cozy', vibe: 'You are peak cat. You\u2019ve achieved maximum floof, total comfort, and the ability to nap literally anywhere.' }
         ];
 
         const upgrades = [
@@ -586,6 +616,16 @@
             if (n < 1_000_000) return `${(n / 1_000).toFixed(n < 10_000 ? 2 : 1)}K`;
             if (n < 1_000_000_000) return `${(n / 1_000_000).toFixed(n < 10_000_000 ? 2 : 1)}M`;
             return `${(n / 1_000_000_000).toFixed(2)}B`;
+        }
+
+        function initMilestones() {
+            progressMilestones.innerHTML = levels.map((level) =>
+                `<span class="milestone" data-at="${level.min}" title="${level.label}">${level.short}</span>`
+            ).join('');
+        }
+
+        function getMilestones() {
+            return progressMilestones.querySelectorAll('.milestone');
         }
 
         function getTransformPercent() {
@@ -767,13 +807,14 @@
             progressTrack.setAttribute('aria-valuenow', pct.toFixed(2));
             progressPercent.textContent = `${pct.toFixed(2)}%`;
             levelLabel.innerHTML = `Stage <strong>${stage}</strong> · ${level.label}`;
+            stageVibe.textContent = level.vibe;
             essenceDisplay.textContent = formatNum(state.essence);
             cpsDisplay.textContent = formatNum(getCps());
             bapPowerDisplay.textContent = formatNum(getClickPower());
-            buttonLabel.textContent = pct >= 100 ? 'Fully cat' : 'Bap';
+            buttonLabel.textContent = pct >= 100 ? 'Total Cozy' : 'Bap';
             shopCount.textContent = `${getTotalOwned()} owned`;
 
-            milestones.forEach((m) => {
+            getMilestones().forEach((m) => {
                 m.classList.toggle('reached', pct >= Number(m.dataset.at));
             });
 
@@ -824,6 +865,7 @@
         });
 
         load();
+        initMilestones();
         initUpgrades();
         state.lastTick = Date.now();
         updateUI();
