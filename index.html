@@ -293,12 +293,36 @@
             line-height: 1.55;
             color: var(--text-muted);
             min-height: 2.6rem;
-            margin: 0;
+            margin: 0 0 0.75rem;
             padding: 0.85rem 1rem;
             background: var(--bg-elevated);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             text-align: left;
+        }
+
+        .reset-button {
+            display: inline-block;
+            padding: 0;
+            border: none;
+            background: none;
+            font: inherit;
+            font-size: 0.76rem;
+            color: var(--text-dim);
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            transition: color 0.15s;
+        }
+
+        .reset-button:hover,
+        .reset-button:focus-visible {
+            color: var(--text-muted);
+        }
+
+        .reset-button:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
         }
 
         .shop-header {
@@ -492,6 +516,7 @@
                 </div>
 
                 <p id="messageDisplay" class="message-display">Press Bap to begin your long journey toward cat.</p>
+                <button id="resetButton" class="reset-button" type="button">Changed my mind</button>
             </main>
 
             <aside class="panel panel--supplies" aria-label="Supplies">
@@ -523,6 +548,7 @@
         const bapPowerDisplay = document.getElementById('bapPowerDisplay');
         const upgradeList = document.getElementById('upgradeList');
         const shopCount = document.getElementById('shopCount');
+        const resetButton = document.getElementById('resetButton');
         const bapZone = document.querySelector('.bap-zone');
         const progressMilestones = document.getElementById('progressMilestones');
 
@@ -726,6 +752,25 @@
             } catch (_) { /* ignore */ }
         }
 
+        function resetProgress() {
+            if (!confirm('Reset all progress? Essence, supplies, and transformation will be cleared.')) return;
+
+            try {
+                localStorage.removeItem(STORAGE_KEY);
+                localStorage.removeItem('become-cat-save-v2');
+                localStorage.removeItem('become-cat-save-v1');
+            } catch (_) { /* ignore */ }
+
+            state.essence = 0;
+            state.totalEssence = 0;
+            state.owned = Object.fromEntries(upgrades.map((u) => [u.id, 0]));
+            state.lastTick = Date.now();
+            state.lastMessageIndex = -1;
+            messageDisplay.textContent = 'Progress reset. You are human again. For now.';
+            updateUI();
+            save();
+        }
+
         function migrateOwned(savedOwned) {
             const merged = Object.fromEntries(upgrades.map((u) => [u.id, 0]));
             if (!savedOwned) return merged;
@@ -875,6 +920,7 @@
                 bap();
             }
         });
+        resetButton.addEventListener('click', resetProgress);
 
         load();
         initMilestones();
