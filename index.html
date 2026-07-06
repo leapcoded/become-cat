@@ -651,9 +651,9 @@
                 <p id="messageDisplay" class="message-display">Press Bap! to begin your long journey toward cat.</p>
             </main>
 
-            <aside class="panel" aria-label="Upgrades">
+            <aside class="panel" aria-label="Supplies">
                 <div class="shop-header">
-                    <h2 class="shop-title">Upgrades</h2>
+                    <h2 class="shop-title">Supplies</h2>
                     <span id="shopCount" class="shop-count">0 owned</span>
                 </div>
                 <div id="upgradeList" class="upgrade-list"></div>
@@ -663,23 +663,23 @@
 
     <div class="ticker-wrap" aria-hidden="true">
         <div class="ticker">
-            <span class="testimonial-item">"Day 3 and I have sprouted whiskers. Worth it." — A. Smith</span>
-            <span class="testimonial-item">"The cardboard box upgrade changed my life." — L. Jones</span>
+            <span class="testimonial-item">"Day 3 and I own four cardboard boxes. Life is good." — A. Smith</span>
+            <span class="testimonial-item">"The feather toy paid for itself in one afternoon." — L. Jones</span>
             <span class="testimonial-item">"10/10 would bap again. Still only 4% cat though." — M. Garcia</span>
-            <span class="testimonial-item">"My sunbeam lease finally paid off." — J. Rodriguez</span>
+            <span class="testimonial-item">"My window perch has excellent bird coverage." — J. Rodriguez</span>
             <span class="testimonial-item">"Peak floofiness is a marathon, not a sprint." — E. Davis</span>
-            <span class="testimonial-item">"The Meow Cult sends their regards." — C. Wilson</span>
-            <span class="testimonial-item">"Day 3 and I have sprouted whiskers. Worth it." — A. Smith</span>
-            <span class="testimonial-item">"The cardboard box upgrade changed my life." — L. Jones</span>
+            <span class="testimonial-item">"The automatic feeder understands me." — C. Wilson</span>
+            <span class="testimonial-item">"Day 3 and I own four cardboard boxes. Life is good." — A. Smith</span>
+            <span class="testimonial-item">"The feather toy paid for itself in one afternoon." — L. Jones</span>
             <span class="testimonial-item">"10/10 would bap again. Still only 4% cat though." — M. Garcia</span>
-            <span class="testimonial-item">"My sunbeam lease finally paid off." — J. Rodriguez</span>
+            <span class="testimonial-item">"My window perch has excellent bird coverage." — J. Rodriguez</span>
             <span class="testimonial-item">"Peak floofiness is a marathon, not a sprint." — E. Davis</span>
-            <span class="testimonial-item">"The Meow Cult sends their regards." — C. Wilson</span>
+            <span class="testimonial-item">"The automatic feeder understands me." — C. Wilson</span>
         </div>
     </div>
 
     <script>
-        const STORAGE_KEY = 'become-cat-save-v2';
+        const STORAGE_KEY = 'become-cat-save-v3';
         const TRANSFORM_GOAL = 100_000_000;
         const TRANSFORM_EXPONENT = 0.18;
         const COST_MULT = 1.15;
@@ -739,14 +739,29 @@
         ];
 
         const upgrades = [
-            { id: 'claws', name: 'Velvet Paws', desc: 'More essence per bap', abbr: 'VP', baseCost: 25, type: 'click', basePower: 1 },
-            { id: 'whisker', name: 'Whisker Twitch', desc: 'Passive staring income', abbr: 'WT', baseCost: 50, type: 'passive', baseCps: 0.2 },
-            { id: 'box', name: 'Cardboard Box', desc: 'Sacred dwelling', abbr: 'CB', baseCost: 250, type: 'passive', baseCps: 1.5 },
-            { id: 'sunbeam', name: 'Sunbeam Lease', desc: 'Premium lounging', abbr: 'SL', baseCost: 2_000, type: 'passive', baseCps: 8 },
-            { id: 'catnip', name: 'Catnip Patch', desc: 'Increased zoomies', abbr: 'CP', baseCost: 15_000, type: 'passive', baseCps: 40 },
-            { id: 'nap', name: 'Nap Shrine', desc: '18hr warmup', abbr: 'NS', baseCost: 120_000, type: 'passive', baseCps: 200 },
-            { id: 'cult', name: 'Meow Cult', desc: 'Wet food offerings', abbr: 'MC', baseCost: 900_000, type: 'passive', baseCps: 1_000 }
+            { id: 'kibble', name: 'Kibble', desc: 'Dry crunchies. The foundation of catdom.', abbr: 'KB', baseCost: 15, type: 'passive', baseCps: 0.15 },
+            { id: 'feather-toy', name: 'Feather Toy', desc: 'A swipe at a passing feather.', abbr: 'FT', baseCost: 30, type: 'click', basePower: 1 },
+            { id: 'cardboard-box', name: 'Cardboard Box', desc: 'If it fits, you sits.', abbr: 'BX', baseCost: 200, type: 'passive', baseCps: 1.2 },
+            { id: 'scratching-post', name: 'Scratching Post', desc: 'Sharpen the claws. Save the couch.', abbr: 'SP', baseCost: 750, type: 'passive', baseCps: 4 },
+            { id: 'crinkle-ball', name: 'Crinkle Ball', desc: 'It crinkles. You must attack.', abbr: 'CB', baseCost: 150, type: 'click', basePower: 1 },
+            { id: 'window-perch', name: 'Window Perch', desc: 'Premium bird-watching real estate.', abbr: 'WP', baseCost: 2_500, type: 'passive', baseCps: 10 },
+            { id: 'laser-pointer', name: 'Laser Pointer', desc: 'The red dot cannot be caught.', abbr: 'LP', baseCost: 3_500, type: 'click', basePower: 2 },
+            { id: 'cat-tree', name: 'Cat Tree', desc: 'Multiple levels. One supreme ruler.', abbr: 'CT', baseCost: 12_000, type: 'passive', baseCps: 45 },
+            { id: 'catnip-plant', name: 'Catnip Plant', desc: 'Local fauna reports concern.', abbr: 'CN', baseCost: 55_000, type: 'passive', baseCps: 180 },
+            { id: 'heated-bed', name: 'Heated Bed', desc: 'Toasty. Non-negotiable.', abbr: 'HB', baseCost: 220_000, type: 'passive', baseCps: 850 },
+            { id: 'wet-food', name: 'Wet Food', desc: 'The good stuff. Served at 5 AM.', abbr: 'WF', baseCost: 1_500_000, type: 'passive', baseCps: 4_000 },
+            { id: 'automatic-feeder', name: 'Automatic Feeder', desc: 'Food appears. You accept.', abbr: 'AF', baseCost: 8_000_000, type: 'passive', baseCps: 15_000 }
         ];
+
+        const LEGACY_OWNED_MAP = {
+            claws: 'feather-toy',
+            whisker: 'kibble',
+            box: 'cardboard-box',
+            sunbeam: 'window-perch',
+            catnip: 'catnip-plant',
+            nap: 'heated-bed',
+            cult: 'automatic-feeder'
+        };
 
         const upgradeEls = new Map();
 
@@ -835,14 +850,27 @@
             } catch (_) { /* ignore */ }
         }
 
+        function migrateOwned(savedOwned) {
+            const merged = Object.fromEntries(upgrades.map((u) => [u.id, 0]));
+            if (!savedOwned) return merged;
+
+            for (const [key, count] of Object.entries(savedOwned)) {
+                const id = LEGACY_OWNED_MAP[key] || key;
+                if (id in merged) merged[id] += count;
+            }
+            return merged;
+        }
+
         function load() {
             try {
-                const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('become-cat-save-v1');
+                const raw = localStorage.getItem(STORAGE_KEY)
+                    || localStorage.getItem('become-cat-save-v2')
+                    || localStorage.getItem('become-cat-save-v1');
                 if (!raw) return;
                 const data = JSON.parse(raw);
                 state.essence = data.essence ?? 0;
                 state.totalEssence = data.totalEssence ?? 0;
-                state.owned = { ...state.owned, ...data.owned };
+                state.owned = migrateOwned(data.owned);
                 if (data.lastTick) {
                     const elapsed = (Date.now() - data.lastTick) / 1000;
                     const offlineGain = getCps() * Math.min(elapsed, 3600);
