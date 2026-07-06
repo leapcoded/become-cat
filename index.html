@@ -506,9 +506,9 @@
 
     <script>
         const STORAGE_KEY = 'become-cat-save-v3';
-        const TRANSFORM_GOAL = 1_000_000_000;
-        const TRANSFORM_EXPONENT = 0.12;
-        const COST_MULT = 1.15;
+        const TRANSFORM_GOAL = 5_000_000_000;
+        const TRANSFORM_EXPONENT = 0.32;
+        const COST_MULT = 1.17;
 
         const button = document.getElementById('catButton');
         const buttonLabel = document.getElementById('buttonLabel');
@@ -586,19 +586,19 @@
         ];
 
         const upgrades = [
-            { id: 'kibble', name: 'Kibble', desc: 'Dry crunchies. The foundation of catdom.', baseCost: 15, type: 'passive', baseCps: 0.15 },
-            { id: 'feather-toy', name: 'Feather Toy', desc: 'A swipe at a passing feather.', baseCost: 30, type: 'click', basePower: 1 },
-            { id: 'cardboard-box', name: 'Cardboard Box', desc: 'If it fits, you sits.', baseCost: 200, type: 'passive', baseCps: 1.2 },
-            { id: 'scratching-post', name: 'Scratching Post', desc: 'Sharpen the claws. Save the couch.', baseCost: 750, type: 'passive', baseCps: 4 },
-            { id: 'crinkle-ball', name: 'Crinkle Ball', desc: 'It crinkles. You must attack.', baseCost: 150, type: 'click', basePower: 1 },
-            { id: 'window-perch', name: 'Window Perch', desc: 'Premium bird-watching real estate.', baseCost: 2_500, type: 'passive', baseCps: 10 },
-            { id: 'laser-pointer', name: 'Laser Pointer', desc: 'The red dot cannot be caught.', baseCost: 3_500, type: 'click', basePower: 2 },
-            { id: 'cat-tree', name: 'Cat Tree', desc: 'Multiple levels. One supreme ruler.', baseCost: 12_000, type: 'passive', baseCps: 45 },
-            { id: 'catnip-plant', name: 'Catnip Plant', desc: 'Local fauna reports concern.', baseCost: 55_000, type: 'passive', baseCps: 180 },
-            { id: 'heated-bed', name: 'Heated Bed', desc: 'Toasty. Non-negotiable.', baseCost: 220_000, type: 'passive', baseCps: 850 },
-            { id: 'wet-food', name: 'Wet Food', desc: 'The good stuff. Served at 5 AM.', baseCost: 1_500_000, type: 'passive', baseCps: 4_000 },
-            { id: 'automatic-feeder', name: 'Automatic Feeder', desc: 'Food appears. You accept.', baseCost: 8_000_000, type: 'passive', baseCps: 15_000 },
-            { id: 'cat-hrt', name: 'Cat HRT', desc: 'Physician-approved whisker protocol.', baseCost: 150_000_000, type: 'perk', mult: 1.75, maxOwned: 1 }
+            { id: 'kibble', name: 'Kibble', desc: 'Dry crunchies. The foundation of catdom.', baseCost: 20, type: 'passive', baseCps: 0.1 },
+            { id: 'feather-toy', name: 'Feather Toy', desc: 'A swipe at a passing feather.', baseCost: 40, type: 'click', basePower: 1 },
+            { id: 'cardboard-box', name: 'Cardboard Box', desc: 'If it fits, you sits.', baseCost: 250, type: 'passive', baseCps: 0.85 },
+            { id: 'scratching-post', name: 'Scratching Post', desc: 'Sharpen the claws. Save the couch.', baseCost: 900, type: 'passive', baseCps: 2.8 },
+            { id: 'crinkle-ball', name: 'Crinkle Ball', desc: 'It crinkles. You must attack.', baseCost: 180, type: 'click', basePower: 1 },
+            { id: 'window-perch', name: 'Window Perch', desc: 'Premium bird-watching real estate.', baseCost: 3_000, type: 'passive', baseCps: 7 },
+            { id: 'laser-pointer', name: 'Laser Pointer', desc: 'The red dot cannot be caught.', baseCost: 4_500, type: 'click', basePower: 2 },
+            { id: 'cat-tree', name: 'Cat Tree', desc: 'Multiple levels. One supreme ruler.', baseCost: 15_000, type: 'passive', baseCps: 32 },
+            { id: 'catnip-plant', name: 'Catnip Plant', desc: 'Local fauna reports concern.', baseCost: 70_000, type: 'passive', baseCps: 125 },
+            { id: 'heated-bed', name: 'Heated Bed', desc: 'Toasty. Non-negotiable.', baseCost: 280_000, type: 'passive', baseCps: 600 },
+            { id: 'wet-food', name: 'Wet Food', desc: 'The good stuff. Served at 5 AM.', baseCost: 2_000_000, type: 'passive', baseCps: 2_800 },
+            { id: 'automatic-feeder', name: 'Automatic Feeder', desc: 'Food appears. You accept.', baseCost: 10_000_000, type: 'passive', baseCps: 10_000 },
+            { id: 'cat-hrt', name: 'Cat HRT', desc: 'Physician-approved whisker protocol.', baseCost: 200_000_000, type: 'perk', mult: 1.75, maxOwned: 1 }
         ];
 
         const LEGACY_OWNED_MAP = {
@@ -748,7 +748,7 @@
                 state.owned = migrateOwned(data.owned);
                 if (data.lastTick) {
                     const elapsed = (Date.now() - data.lastTick) / 1000;
-                    const offlineGain = getCps() * Math.min(elapsed, 3600);
+                    const offlineGain = getCps() * Math.min(elapsed, 1200);
                     if (offlineGain > 0) addEssence(offlineGain);
                 }
             } catch (_) { /* ignore */ }
