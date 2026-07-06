@@ -44,7 +44,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .shell { max-width: 1000px; margin: 0 auto; }
+        .shell { max-width: 1120px; margin: 0 auto; }
 
         .topbar {
             display: flex;
@@ -68,7 +68,14 @@
             gap: 0.75rem;
         }
 
-        .panel--supplies { padding: 1.1rem 1.25rem 1.25rem; }
+        @media (min-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr minmax(360px, 420px);
+                align-items: start;
+            }
+        }
+
+        .panel--supplies { padding: 1rem 1.1rem 1.1rem; }
 
         .panel {
             background: var(--surface);
@@ -79,27 +86,34 @@
 
         .panel--game { text-align: center; }
 
-        .eyebrow {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            color: var(--text-dim);
-            margin: 0 0 0.5rem;
+        .game-header {
+            margin-bottom: 1.35rem;
+            padding-bottom: 1.1rem;
+            border-bottom: 1px solid rgba(212, 160, 84, 0.15);
         }
 
-        .title {
-            font-size: clamp(1.75rem, 5vw, 2.25rem);
+        .brand-title {
+            font-size: clamp(2.25rem, 7vw, 3.25rem);
             font-weight: 700;
-            letter-spacing: -0.025em;
-            margin: 0 0 0.4rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin: 0 0 0.35rem;
+            color: var(--accent);
+            text-shadow: 0 0 48px rgba(212, 160, 84, 0.22);
+        }
+
+        .tagline {
+            font-size: clamp(1.1rem, 3vw, 1.35rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.45rem;
             color: var(--text);
         }
 
         .subtitle {
             font-size: 0.92rem;
             color: var(--text-muted);
-            margin: 0 0 1.5rem;
+            margin: 0;
             font-weight: 400;
             max-width: 28rem;
             margin-left: auto;
@@ -142,8 +156,8 @@
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 0.45rem;
-            font-size: 0.7rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.78rem;
             font-weight: 500;
             letter-spacing: 0.08em;
             text-transform: uppercase;
@@ -155,7 +169,8 @@
             font-variant-numeric: tabular-nums;
             letter-spacing: 0;
             text-transform: none;
-            font-size: 0.78rem;
+            font-size: 0.92rem;
+            font-weight: 600;
         }
 
         .progress-track {
@@ -176,9 +191,10 @@
         .progress-milestones {
             display: grid;
             grid-template-columns: repeat(11, 1fr);
-            gap: 0.15rem;
-            margin-top: 0.45rem;
-            font-size: 0.52rem;
+            gap: 0.2rem;
+            margin-top: 0.55rem;
+            font-size: 0.68rem;
+            font-weight: 500;
             color: var(--text-dim);
             text-align: center;
         }
@@ -329,20 +345,22 @@
             display: flex;
             align-items: baseline;
             justify-content: space-between;
-            margin-bottom: 0.85rem;
-            padding-bottom: 0.75rem;
+            margin-bottom: 0.65rem;
+            padding-bottom: 0.6rem;
             border-bottom: 1px solid var(--border);
         }
 
         .shop-title {
-            font-size: 0.88rem;
+            font-size: 0.84rem;
             font-weight: 600;
             margin: 0;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--accent);
         }
 
         .shop-count {
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             color: var(--text-dim);
             font-variant-numeric: tabular-nums;
         }
@@ -350,23 +368,24 @@
         .upgrade-list {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 0.3rem;
+            gap: 0.25rem;
         }
 
-        @media (min-width: 640px) {
-            .upgrade-list { grid-template-columns: repeat(2, 1fr); }
-        }
+        @media (min-width: 900px) {
+            .upgrade-list {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.3rem 0.35rem;
+            }
 
-        @media (min-width: 960px) {
-            .upgrade-list { grid-template-columns: repeat(3, 1fr); }
+            .panel--supplies .upgrade-desc { display: none; }
         }
 
         .upgrade {
             display: grid;
-            grid-template-columns: 2rem 1fr;
-            gap: 0.5rem;
+            grid-template-columns: 1.75rem 1fr;
+            gap: 0.4rem;
             width: 100%;
-            padding: 0.5rem 0.55rem;
+            padding: 0.4rem 0.45rem;
             border: 1px solid transparent;
             border-radius: var(--radius-sm);
             background: transparent;
@@ -406,9 +425,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 2rem;
-            height: 2rem;
-            border-radius: 6px;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 5px;
             background: var(--bg-elevated);
             border: 1px solid var(--border);
             color: var(--accent);
@@ -424,19 +443,20 @@
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            gap: 0.75rem;
-            margin-bottom: 0.1rem;
+            gap: 0.35rem;
+            margin-bottom: 0.05rem;
         }
 
         .upgrade-name {
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.74rem;
             color: var(--text);
+            line-height: 1.2;
         }
 
         .upgrade-cost {
             font-weight: 600;
-            font-size: 0.76rem;
+            font-size: 0.7rem;
             color: var(--accent);
             font-variant-numeric: tabular-nums;
             white-space: nowrap;
@@ -454,7 +474,7 @@
         }
 
         .upgrade-effect {
-            font-size: 0.66rem;
+            font-size: 0.62rem;
             color: var(--text-muted);
             font-variant-numeric: tabular-nums;
         }
@@ -474,9 +494,11 @@
 
         <div class="layout">
             <main class="panel panel--game">
-                <p class="eyebrow">Become Cat</p>
-                <h1 class="title">Who can stop you?</h1>
-                <p class="subtitle">A very slow transformation. One bap at a time.</p>
+                <header class="game-header">
+                    <h1 class="brand-title">Become Cat</h1>
+                    <p class="tagline">Who can stop you?</p>
+                    <p class="subtitle">A very slow transformation. One bap at a time.</p>
+                </header>
 
                 <div class="stage-block">
                     <p id="levelLabel" class="level-label">Stage <strong>1</strong> · Just Human</p>
@@ -846,6 +868,7 @@
                 btn.classList.toggle('can-buy', canAfford);
                 btn.classList.toggle('perk-owned', upgrade.type === 'perk' && atMax);
                 btn.disabled = !canAfford;
+                btn.title = upgrade.desc;
                 btn.querySelector('[data-field="name"]').textContent = upgrade.name;
                 btn.querySelector('[data-field="desc"]').textContent = upgrade.desc;
                 btn.querySelector('[data-field="effect"]').textContent = upgrade.type === 'perk' && atMax
