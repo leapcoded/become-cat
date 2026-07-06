@@ -44,7 +44,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .shell { max-width: 920px; margin: 0 auto; }
+        .shell { max-width: 960px; margin: 0 auto; }
 
         .topbar {
             display: flex;
@@ -68,12 +68,6 @@
             gap: 0.75rem;
         }
 
-        @media (min-width: 800px) {
-            .layout {
-                grid-template-columns: 1fr 320px;
-                align-items: start;
-            }
-        }
 
         .panel {
             background: var(--surface);
@@ -112,10 +106,10 @@
         }
 
         .level-label {
-            font-size: 0.84rem;
+            font-size: 0.82rem;
             font-weight: 500;
             color: var(--text-muted);
-            margin: 0 0 1.25rem;
+            margin: 0 0 1rem;
         }
 
         .level-label strong {
@@ -162,11 +156,13 @@
         }
 
         .progress-milestones {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 0.4rem;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.25rem;
+            margin-top: 0.45rem;
             font-size: 0.62rem;
             color: var(--text-dim);
+            text-align: center;
         }
 
         .milestone.reached { color: var(--accent); }
@@ -290,21 +286,25 @@
         }
 
         .upgrade-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-            max-height: min(72vh, 580px);
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255,255,255,0.12) transparent;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.3rem;
+        }
+
+        @media (min-width: 640px) {
+            .upgrade-list { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 900px) {
+            .upgrade-list { grid-template-columns: repeat(3, 1fr); }
         }
 
         .upgrade {
             display: grid;
-            grid-template-columns: 2.25rem 1fr;
-            gap: 0.65rem;
+            grid-template-columns: 2rem 1fr;
+            gap: 0.55rem;
             width: 100%;
-            padding: 0.65rem 0.7rem;
+            padding: 0.5rem 0.6rem;
             border: 1px solid transparent;
             border-radius: var(--radius-sm);
             background: transparent;
@@ -344,9 +344,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 2.25rem;
-            height: 2.25rem;
-            border-radius: 7px;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 6px;
             background: var(--bg-elevated);
             border: 1px solid var(--border);
             color: var(--accent);
@@ -368,27 +368,31 @@
 
         .upgrade-name {
             font-weight: 600;
-            font-size: 0.84rem;
+            font-size: 0.8rem;
             color: var(--text);
         }
 
         .upgrade-cost {
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.76rem;
             color: var(--accent);
             font-variant-numeric: tabular-nums;
             white-space: nowrap;
         }
 
         .upgrade-desc {
-            font-size: 0.74rem;
+            font-size: 0.7rem;
             color: var(--text-dim);
-            line-height: 1.35;
-            margin-bottom: 0.15rem;
+            line-height: 1.3;
+            margin-bottom: 0.1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .upgrade-effect {
-            font-size: 0.68rem;
+            font-size: 0.66rem;
             color: var(--text-muted);
             font-variant-numeric: tabular-nums;
         }
@@ -412,7 +416,7 @@
                 <h1 class="title">Who can stop you?</h1>
                 <p class="subtitle">A very slow transformation. One bap at a time.</p>
 
-                <p id="levelLabel" class="level-label">Stage <strong>01</strong> · Mostly Human</p>
+                <p id="levelLabel" class="level-label">Stage <strong>1</strong> · Human</p>
 
                 <div class="progress-block">
                     <div class="progress-header">
@@ -424,9 +428,9 @@
                     </div>
                     <div class="progress-milestones" aria-hidden="true">
                         <span class="milestone" data-at="0">Human</span>
-                        <span class="milestone" data-at="15">Whiskers</span>
-                        <span class="milestone" data-at="40">Floof</span>
-                        <span class="milestone" data-at="70">Napper</span>
+                        <span class="milestone" data-at="25">Whiskers</span>
+                        <span class="milestone" data-at="50">Floof</span>
+                        <span class="milestone" data-at="75">Napper</span>
                         <span class="milestone" data-at="100">Loaf</span>
                     </div>
                 </div>
@@ -532,16 +536,11 @@
         ];
 
         const levels = [
-            { min: 0, label: 'Mostly Human' },
-            { min: 1, label: 'Felt a Twitch' },
-            { min: 4, label: 'Sprouting Whiskers' },
-            { min: 10, label: 'Part-Time Cat' },
-            { min: 20, label: 'Tail Energy Detected' },
-            { min: 35, label: 'Certified Floof' },
-            { min: 55, label: 'Supreme Napper' },
-            { min: 75, label: 'Ancient Cat Spirit' },
-            { min: 92, label: 'Peak Cat Achieved' },
-            { min: 100, label: 'Transcendent Loaf' }
+            { min: 0, label: 'Human' },
+            { min: 25, label: 'Whiskers' },
+            { min: 50, label: 'Floof' },
+            { min: 75, label: 'Napper' },
+            { min: 100, label: 'Loaf' }
         ];
 
         const upgrades = [
@@ -762,7 +761,7 @@
         function updateUI() {
             const pct = getTransformPercent();
             const level = getLevel(pct);
-            const stage = String(level.index + 1).padStart(2, '0');
+            const stage = String(level.index + 1);
 
             progressBar.style.width = `${pct}%`;
             progressTrack.setAttribute('aria-valuenow', pct.toFixed(2));
