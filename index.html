@@ -3,118 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Become Cat!</title>
+    <title>Become Cat! · littlepossum.xyz</title>
+    <meta name="description" content="A slow, inevitable transformation into cat. Bap. Upgrade. Loaf. Repeat.">
+    <meta name="author" content="littlepossum.xyz">
+    <meta property="og:title" content="Become Cat!">
+    <meta property="og:description" content="A slow, inevitable transformation into cat. Bap. Upgrade. Loaf. Repeat.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://littlepossum.xyz/become-cat">
+    <meta name="theme-color" content="#a78bfa">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
     <style>
+        :root {
+            --brown: #291807;
+            --orange: #d97706;
+            --orange-dark: #b45309;
+            --purple-light: #f5d0fe;
+            --purple: #a78bfa;
+            --gray: #4a5568;
+            --gray-light: #718096;
+            --ticker: #7d4905;
+            --card: rgba(255, 255, 255, 0.78);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            color: #291807; /* Dark brown text */
-            
-            /* Subtle, cute radial gradient background */
-            background: radial-gradient(circle at center, #f5d0fe 0%, #a78bfa 100%);
-            
-            /* Flexbox for centering content */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: var(--brown);
+            background: radial-gradient(circle at center, var(--purple-light) 0%, var(--purple) 100%);
             min-height: 100vh;
-            padding: 1rem;
-            text-align: center;
+            margin: 0;
+            padding: 1rem 1rem 4.75rem;
         }
-        
-        .container {
-            background-color: rgba(255, 255, 255, 0.7);
+
+        .page {
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+
+        .site-link {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--orange);
+            text-decoration: none;
+            margin-bottom: 0.75rem;
+            opacity: 0.85;
+        }
+
+        .site-link:hover, .site-link:focus-visible {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .card {
+            background: var(--card);
             backdrop-filter: blur(8px);
-            border-radius: 1.5rem;
-            padding: 2rem 3rem;
+            border-radius: 1.25rem;
+            padding: 1.5rem;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-            max-width: 32rem;
-            width: 100%;
-            transition: transform 0.5s;
-            transform: scale(1);
-        }
-        
-        .container:hover {
-            transform: scale(1.05);
+            margin-bottom: 1rem;
+            text-align: center;
         }
 
         .title {
-            font-size: 2.25rem;
-            line-height: 2.5rem;
+            font-size: clamp(1.75rem, 5vw, 2.25rem);
             font-weight: 800;
-            color: #d97706; /* Burnt orange for titles */
-            margin-bottom: 0.5rem;
-            filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.07));
+            color: var(--orange);
+            margin: 0 0 0.25rem;
         }
 
         .subtitle {
-            font-size: 1.25rem;
-            line-height: 1.75rem;
-            color: #d97706;
-            margin-bottom: 2rem;
+            font-size: 1rem;
+            color: var(--orange);
+            margin: 0 0 1rem;
             font-weight: 600;
         }
-        
+
+        .cat-avatar {
+            font-size: 3rem;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            display: block;
+            user-select: none;
+        }
+
+        .cat-avatar.bounce { animation: avatar-bounce 0.45s ease-in-out; }
+
+        @keyframes avatar-bounce {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            30% { transform: scale(1.2) rotate(-8deg); }
+            60% { transform: scale(1.1) rotate(6deg); }
+        }
+
+        .level-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--gray);
+            margin: 0 0 0.35rem;
+        }
+
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--gray-light);
+            margin-bottom: 0.35rem;
+            font-weight: 600;
+        }
+
+        .progress-wrap {
+            width: 100%;
+            height: 0.7rem;
+            background: rgba(217, 119, 6, 0.15);
+            border-radius: 9999px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--orange), #f59e0b);
+            border-radius: 9999px;
+            transition: width 0.35s ease;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--gray);
+        }
+
+        .stat-value {
+            color: var(--orange);
+            font-size: 1.1rem;
+        }
+
+        .cat-button-wrap {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+        }
+
         .cat-button {
-            background-color: #d97706;
+            background: var(--orange);
             color: white;
             font-weight: bold;
-            width: 13rem;
-            height: 13rem;
+            width: min(12rem, 50vw);
+            height: min(12rem, 50vw);
             border-radius: 9999px;
-            font-size: 1.5rem;
-            line-height: 2rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s;
-            transform: scale(1);
+            font-size: clamp(1.25rem, 4vw, 1.5rem);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.15s, background-color 0.15s;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 2rem;
-            border: none;
+            border: 3px solid transparent;
             cursor: pointer;
+            touch-action: manipulation;
         }
 
-        .cat-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        .cat-button:hover { background: var(--orange-dark); transform: scale(1.03); }
+        .cat-button:active { transform: scale(0.96); }
+        .cat-button:focus-visible {
+            outline: none;
+            border-color: var(--brown);
+            box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.35);
         }
 
-        .cat-button:active {
-            transform: scale(0.95);
-        }
-        
-        .message-display {
-            font-size: 1.25rem;
-            line-height: 1.75rem;
-            font-weight: bold;
-            color: #4a5568;
-            transition: all 0.3s;
-        }
-        
-        .cat-bounce {
-            animation: bounce 0.5s ease-in-out;
-        }
-
-        @keyframes bounce {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
-        }
-
-        /* Testimonial ticker styles */
-        .ticker-wrap {
+        .float-text {
             position: absolute;
-            bottom: 1rem;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 800;
+            color: var(--orange);
+            pointer-events: none;
+            animation: float-up 0.8s ease-out forwards;
+            font-size: 1.1rem;
+            white-space: nowrap;
+        }
+
+        @keyframes float-up {
+            0% { opacity: 1; transform: translate(-50%, -50%); }
+            100% { opacity: 0; transform: translate(-50%, -140%); }
+        }
+
+        .message-display {
+            font-size: 1rem;
+            line-height: 1.5;
+            font-weight: 700;
+            color: var(--gray);
+            min-height: 3rem;
+            margin: 0;
+        }
+
+        .message-display.cat-bounce { animation: message-bounce 0.45s ease-in-out; }
+
+        @keyframes message-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .shop-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--orange);
+            margin: 0 0 0.75rem;
+            text-align: left;
+        }
+
+        .upgrade-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .upgrade {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 0.75rem;
+            align-items: center;
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid rgba(217, 119, 6, 0.2);
+            border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.55);
+            cursor: pointer;
+            text-align: left;
+            font: inherit;
+            color: inherit;
+            transition: border-color 0.15s, background 0.15s, transform 0.1s;
+        }
+
+        .upgrade:hover:not(:disabled) {
+            border-color: var(--orange);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .upgrade:active:not(:disabled) { transform: scale(0.99); }
+
+        .upgrade:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .upgrade:focus-visible {
+            outline: none;
+            border-color: var(--orange);
+            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.3);
+        }
+
+        .upgrade-icon { font-size: 1.75rem; line-height: 1; }
+
+        .upgrade-name {
+            font-weight: 800;
+            font-size: 0.95rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .upgrade-desc {
+            font-size: 0.8rem;
+            color: var(--gray-light);
+            line-height: 1.3;
+        }
+
+        .upgrade-owned {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-top: 0.2rem;
+            font-weight: 600;
+        }
+
+        .upgrade-cost {
+            font-weight: 800;
+            font-size: 0.9rem;
+            color: var(--orange);
+            white-space: nowrap;
+        }
+
+        .ticker-wrap {
+            position: fixed;
+            bottom: 0;
             left: 0;
             width: 100%;
             overflow: hidden;
             white-space: nowrap;
-            font-size: 1rem;
-            line-height: 1.5rem;
+            font-size: 0.9rem;
+            padding: 0.7rem 0;
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(4px);
         }
+
         .ticker {
             display: inline-block;
-            animation: ticker-animation 30s linear infinite;
+            animation: ticker-animation 35s linear infinite;
         }
 
         @keyframes ticker-animation {
@@ -124,53 +315,437 @@
 
         .testimonial-item {
             display: inline-block;
-            padding: 0 1rem;
-            color: #7d4905;
+            padding: 0 1.25rem;
+            color: var(--ticker);
             font-style: italic;
+        }
+
+        .paw {
+            position: fixed;
+            font-size: 1.5rem;
+            pointer-events: none;
+            z-index: 100;
+            animation: paw-float 0.9s ease-out forwards;
+            user-select: none;
+        }
+
+        @keyframes paw-float {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+            100% { opacity: 0; transform: translate(-50%, -120%) scale(1.2); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .progress-bar, .ticker, .cat-button, .upgrade { transition: none; animation: none; }
+            .cat-avatar.bounce, .message-display.cat-bounce, .paw, .float-text { animation: none; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1 class="title">
-            Become Cat!
-        </h1>
-        <p class="subtitle">
-            Who can stop you?
-        </p>
+    <div class="page">
+        <a class="site-link" href="https://littlepossum.xyz">← littlepossum.xyz</a>
 
-        <!-- The main button is now a perfect circle -->
-        <button id="catButton" class="cat-button">
-            <span>
-                Bap!
-            </span>
-        </button>
+        <main class="card">
+            <h1 class="title">Become Cat!</h1>
+            <p class="subtitle">A slow, inevitable transformation.</p>
 
-        <!-- Display area for messages -->
-        <div>
-            <p id="messageDisplay" class="message-display"></p>
-        </div>
+            <span id="catAvatar" class="cat-avatar" aria-hidden="true">🐾</span>
+            <p id="levelLabel" class="level-label">Status: Mostly Human</p>
+
+            <div class="progress-meta">
+                <span>Transformation</span>
+                <span id="progressPercent">0.00%</span>
+            </div>
+            <div class="progress-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Cat transformation progress">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+
+            <div class="stats">
+                <div><span id="essenceDisplay" class="stat-value">0</span> essence</div>
+                <div><span id="cpsDisplay" class="stat-value">0</span>/sec</div>
+                <div><span id="bapPowerDisplay" class="stat-value">1</span>/bap</div>
+            </div>
+
+            <div class="cat-button-wrap">
+                <button id="catButton" class="cat-button" type="button" aria-describedby="messageDisplay">
+                    <span id="buttonLabel">Bap!</span>
+                </button>
+            </div>
+
+            <p id="messageDisplay" class="message-display">Press Bap! to begin your long journey toward cat.</p>
+        </main>
+
+        <section class="card" aria-label="Upgrades">
+            <h2 class="shop-title">Cat Upgrades</h2>
+            <div id="upgradeList" class="upgrade-list"></div>
+        </section>
     </div>
-    
-    <!-- Testimonial Ticker -->
-    <div class="ticker-wrap">
+
+    <div class="ticker-wrap" aria-hidden="true">
         <div class="ticker">
-            <span class="testimonial-item">"I can now nap for 18 hours a day!" - A. Smith</span>
-            <span class="testimonial-item">"My boyfriend has started petting me and bringing me snacks." - L. Jones</span>
-            <span class="testimonial-item">"I feel an uncontrollable urge to knock things over. 10/10 would bap again." - M. Garcia</span>
-            <span class="testimonial-item">"No more responsibilities. Just sunbeams and snacks." - J. Rodriguez</span>
-            <span class="testimonial-item">"I have achieved peak floofiness." - E. Davis</span>
-            <span class="testimonial-item">"The dog is now under my command." - C. Wilson</span>
-            <!-- Duplicate content for seamless loop -->
-            <span class="testimonial-item">"I can now nap for 18 hours a day!" - A. Smith</span>
-            <span class="testimonial-item">"My humans have started petting me more." - L. Jones</span>
-            <span class="testimonial-item">"I feel an uncontrollable urge to knock things over. 10/10 would bap again." - M. Garcia</span>
-            <span class="testimonial-item">"No more responsibilities. Just sunbeams and snacks." - J. Rodriguez</span>
-            <span class="testimonial-item">"I have achieved peak floofiness." - E. Davis</span>
-            <span class="testimonial-item">"The dog is now under my command." - C. Wilson</span>
+            <span class="testimonial-item">"Day 3 and I have sprouted whiskers. Worth it." — A. Smith</span>
+            <span class="testimonial-item">"The cardboard box upgrade changed my life." — L. Jones</span>
+            <span class="testimonial-item">"10/10 would bap again. Still only 4% cat though." — M. Garcia</span>
+            <span class="testimonial-item">"My sunbeam lease finally paid off." — J. Rodriguez</span>
+            <span class="testimonial-item">"Peak floofiness is a marathon, not a sprint." — E. Davis</span>
+            <span class="testimonial-item">"The Meow Cult sends their regards." — C. Wilson</span>
+            <span class="testimonial-item">"Day 3 and I have sprouted whiskers. Worth it." — A. Smith</span>
+            <span class="testimonial-item">"The cardboard box upgrade changed my life." — L. Jones</span>
+            <span class="testimonial-item">"10/10 would bap again. Still only 4% cat though." — M. Garcia</span>
+            <span class="testimonial-item">"My sunbeam lease finally paid off." — J. Rodriguez</span>
+            <span class="testimonial-item">"Peak floofiness is a marathon, not a sprint." — E. Davis</span>
+            <span class="testimonial-item">"The Meow Cult sends their regards." — C. Wilson</span>
         </div>
     </div>
-    
+
+    <script>
+        const STORAGE_KEY = 'become-cat-save-v1';
+        const TRANSFORM_GOAL = 1_000_000;
+        const COST_MULT = 1.15;
+
+        const button = document.getElementById('catButton');
+        const buttonLabel = document.getElementById('buttonLabel');
+        const messageDisplay = document.getElementById('messageDisplay');
+        const progressBar = document.getElementById('progressBar');
+        const progressWrap = progressBar.parentElement;
+        const progressPercent = document.getElementById('progressPercent');
+        const levelLabel = document.getElementById('levelLabel');
+        const catAvatar = document.getElementById('catAvatar');
+        const essenceDisplay = document.getElementById('essenceDisplay');
+        const cpsDisplay = document.getElementById('cpsDisplay');
+        const bapPowerDisplay = document.getElementById('bapPowerDisplay');
+        const upgradeList = document.getElementById('upgradeList');
+        const buttonWrap = button.parentElement;
+
+        const messages = [
+            'Your human is now preparing your favorite snack.',
+            'You have successfully located a sunbeam.',
+            'A mysterious red dot has appeared.',
+            "You've chosen to sit on a keyboard.",
+            'A cardboard box is now your cozy fortress.',
+            'You feel an uncontrollable urge to nap.',
+            'Your purr has reached maximum volume.',
+            'The dog is now under your command.',
+            'You have achieved peak floofiness.',
+            "Who needs a bed when there's a laundry basket?",
+            'You are now an expert at knocking things over.',
+            'The tiny bell on your collar has been silenced.',
+            "It's nap time. On everything.",
+            'The house belongs to you now.',
+            'You have claimed the highest shelf as your throne.',
+            'A zoomie has been scheduled for 3 AM.',
+            'You knocked a glass off the counter. Perfectly.',
+            'Your tail now has a mind of its own.',
+            'You demand chin scratches. Immediately.',
+            'You have entered loaf mode.',
+            'The transformation is slow. The transformation is certain.',
+            'One more bap. Always one more bap.'
+        ];
+
+        const levels = [
+            { min: 0, label: 'Mostly Human', emoji: '🐾' },
+            { min: 0.5, label: 'Felt a Twitch', emoji: '🙂' },
+            { min: 2, label: 'Sprouting Whiskers', emoji: '😺' },
+            { min: 5, label: 'Part-Time Cat', emoji: '🐱' },
+            { min: 12, label: 'Tail Energy Detected', emoji: '😸' },
+            { min: 25, label: 'Certified Floof', emoji: '😼' },
+            { min: 45, label: 'Supreme Napper', emoji: '😻' },
+            { min: 70, label: 'Ancient Cat Spirit', emoji: '🦁' },
+            { min: 90, label: 'Peak Cat Achieved', emoji: '👑' },
+            { min: 100, label: 'Transcendent Loaf', emoji: '✨' }
+        ];
+
+        const upgrades = [
+            {
+                id: 'claws',
+                name: 'Velvet Paws',
+                desc: 'Each bap carries more feline essence.',
+                icon: '🐾',
+                baseCost: 25,
+                type: 'click',
+                basePower: 1
+            },
+            {
+                id: 'whisker',
+                name: 'Whisker Twitch',
+                desc: 'Generates essence while you stare blankly.',
+                icon: '👃',
+                baseCost: 50,
+                type: 'passive',
+                baseCps: 0.2
+            },
+            {
+                id: 'box',
+                name: 'Cardboard Box',
+                desc: 'A sacred dwelling. Very important.',
+                icon: '📦',
+                baseCost: 250,
+                type: 'passive',
+                baseCps: 1.5
+            },
+            {
+                id: 'sunbeam',
+                name: 'Sunbeam Lease',
+                desc: 'Premium lounging real estate.',
+                icon: '☀️',
+                baseCost: 2_000,
+                type: 'passive',
+                baseCps: 8
+            },
+            {
+                id: 'catnip',
+                name: 'Catnip Patch',
+                desc: 'Local wildlife reports increased zoomies.',
+                icon: '🌿',
+                baseCost: 15_000,
+                type: 'passive',
+                baseCps: 40
+            },
+            {
+                id: 'nap',
+                name: 'Nap Shrine',
+                desc: '18 hours is just the warmup.',
+                icon: '💤',
+                baseCost: 120_000,
+                type: 'passive',
+                baseCps: 200
+            },
+            {
+                id: 'cult',
+                name: 'Meow Cult',
+                desc: 'They bring offerings of wet food.',
+                icon: '🏛️',
+                baseCost: 900_000,
+                type: 'passive',
+                baseCps: 1_000
+            }
+        ];
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        let state = {
+            essence: 0,
+            totalEssence: 0,
+            owned: Object.fromEntries(upgrades.map((u) => [u.id, 0])),
+            lastTick: Date.now(),
+            lastMessageIndex: -1
+        };
+
+        function formatNum(n) {
+            if (n < 1_000) return Math.floor(n).toLocaleString();
+            if (n < 1_000_000) return `${(n / 1_000).toFixed(n < 10_000 ? 2 : 1)}K`;
+            if (n < 1_000_000_000) return `${(n / 1_000_000).toFixed(n < 10_000_000 ? 2 : 1)}M`;
+            return `${(n / 1_000_000_000).toFixed(2)}B`;
+        }
+
+        function getTransformPercent() {
+            const pct = 100 * (Math.log10(1 + state.totalEssence) / Math.log10(1 + TRANSFORM_GOAL));
+            return Math.min(100, pct);
+        }
+
+        function getLevel(pct) {
+            let current = levels[0];
+            for (const level of levels) {
+                if (pct >= level.min) current = level;
+            }
+            return current;
+        }
+
+        function getClickPower() {
+            let power = 1;
+            for (const upgrade of upgrades) {
+                if (upgrade.type === 'click') {
+                    power += upgrade.basePower * state.owned[upgrade.id];
+                }
+            }
+            return power;
+        }
+
+        function getCps() {
+            let cps = 0;
+            for (const upgrade of upgrades) {
+                if (upgrade.type === 'passive') {
+                    cps += upgrade.baseCps * state.owned[upgrade.id];
+                }
+            }
+            return cps;
+        }
+
+        function getUpgradeCost(upgrade) {
+            const owned = state.owned[upgrade.id];
+            return Math.ceil(upgrade.baseCost * Math.pow(COST_MULT, owned));
+        }
+
+        function pickMessage() {
+            let index;
+            do {
+                index = Math.floor(Math.random() * messages.length);
+            } while (messages.length > 1 && index === state.lastMessageIndex);
+            state.lastMessageIndex = index;
+            return messages[index];
+        }
+
+        function addEssence(amount) {
+            state.essence += amount;
+            state.totalEssence += amount;
+        }
+
+        function save() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                    essence: state.essence,
+                    totalEssence: state.totalEssence,
+                    owned: state.owned,
+                    lastTick: Date.now()
+                }));
+            } catch (_) { /* ignore */ }
+        }
+
+        function load() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return;
+                const data = JSON.parse(raw);
+                state.essence = data.essence ?? 0;
+                state.totalEssence = data.totalEssence ?? 0;
+                state.owned = { ...state.owned, ...data.owned };
+                if (data.lastTick) {
+                    const elapsed = (Date.now() - data.lastTick) / 1000;
+                    const offlineGain = getCps() * Math.min(elapsed, 3600);
+                    if (offlineGain > 0) addEssence(offlineGain);
+                }
+            } catch (_) { /* ignore */ }
+        }
+
+        function spawnPaw(x, y) {
+            if (prefersReducedMotion) return;
+            const paw = document.createElement('span');
+            paw.className = 'paw';
+            paw.textContent = '🐾';
+            paw.style.left = `${x}px`;
+            paw.style.top = `${y}px`;
+            document.body.appendChild(paw);
+            paw.addEventListener('animationend', () => paw.remove());
+        }
+
+        function spawnFloat(amount) {
+            if (prefersReducedMotion) return;
+            const el = document.createElement('span');
+            el.className = 'float-text';
+            el.textContent = `+${formatNum(amount)}`;
+            buttonWrap.appendChild(el);
+            el.addEventListener('animationend', () => el.remove());
+        }
+
+        function triggerBounce(el, className) {
+            el.classList.remove(className);
+            void el.offsetWidth;
+            el.classList.add(className);
+            el.addEventListener('animationend', () => el.classList.remove(className), { once: true });
+        }
+
+        function renderUpgrades() {
+            upgradeList.innerHTML = '';
+            for (const upgrade of upgrades) {
+                const owned = state.owned[upgrade.id];
+                const cost = getUpgradeCost(upgrade);
+                const canAfford = state.essence >= cost;
+                const effect = upgrade.type === 'click'
+                    ? `+${upgrade.basePower} per bap`
+                    : `+${upgrade.baseCps}/sec each`;
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'upgrade';
+                btn.disabled = !canAfford;
+                btn.innerHTML = `
+                    <span class="upgrade-icon">${upgrade.icon}</span>
+                    <span>
+                        <div class="upgrade-name">${upgrade.name}</div>
+                        <div class="upgrade-desc">${upgrade.desc} (${effect})</div>
+                        <div class="upgrade-owned">Owned: ${owned}</div>
+                    </span>
+                    <span class="upgrade-cost">${formatNum(cost)}</span>
+                `;
+                btn.addEventListener('click', () => buyUpgrade(upgrade.id));
+                upgradeList.appendChild(btn);
+            }
+        }
+
+        function updateUI() {
+            const pct = getTransformPercent();
+            const level = getLevel(pct);
+            const clickPower = getClickPower();
+            const cps = getCps();
+
+            progressBar.style.width = `${pct}%`;
+            progressWrap.setAttribute('aria-valuenow', pct.toFixed(2));
+            progressPercent.textContent = `${pct.toFixed(2)}%`;
+            levelLabel.textContent = `Status: ${level.label}`;
+            catAvatar.textContent = level.emoji;
+            essenceDisplay.textContent = formatNum(state.essence);
+            cpsDisplay.textContent = formatNum(cps);
+            bapPowerDisplay.textContent = formatNum(clickPower);
+            buttonLabel.textContent = pct >= 100 ? 'Fully Cat!' : 'Bap!';
+
+            renderUpgrades();
+        }
+
+        function buyUpgrade(id) {
+            const upgrade = upgrades.find((u) => u.id === id);
+            const cost = getUpgradeCost(upgrade);
+            if (state.essence < cost) return;
+
+            state.essence -= cost;
+            state.owned[id] += 1;
+            messageDisplay.textContent = `Purchased ${upgrade.name}. The transformation deepens.`;
+            triggerBounce(messageDisplay, 'cat-bounce');
+            updateUI();
+            save();
+        }
+
+        function bap(event) {
+            const gained = getClickPower();
+            addEssence(gained);
+            messageDisplay.textContent = pickMessage();
+            triggerBounce(messageDisplay, 'cat-bounce');
+            triggerBounce(catAvatar, 'bounce');
+            spawnFloat(gained);
+
+            const x = event.clientX || window.innerWidth / 2;
+            const y = event.clientY || window.innerHeight / 2;
+            spawnPaw(x, y);
+
+            updateUI();
+            save();
+        }
+
+        function tick() {
+            const now = Date.now();
+            const delta = (now - state.lastTick) / 1000;
+            state.lastTick = now;
+
+            const cps = getCps();
+            if (cps > 0 && delta > 0) {
+                addEssence(cps * delta);
+                updateUI();
+            }
+        }
+
+        button.addEventListener('click', bap);
+        button.addEventListener('keydown', (event) => {
+            if (event.key === ' ' || event.key === 'Enter') {
+                event.preventDefault();
+                bap(event);
+            }
+        });
+
+        load();
+        state.lastTick = Date.now();
+        updateUI();
+
+        setInterval(tick, 100);
+        setInterval(save, 5000);
+    </script>
 </body>
 </html>
